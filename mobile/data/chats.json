@@ -1,0 +1,62 @@
+[
+  {
+    "chatId": "1",
+    "username": "user1",
+    "avatar": "https://instagram.fhan17-1.fna.fbcdn.net/v/t51.29350-15/453848686_800435995614577_1374694998944681367_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4MTIwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fhan17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=LFDG933JhFwQ7kNvgH_4nqc&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=MzQyNTMxOTY3MDYyMjg0OTA2Ng%3D%3D.3-ccb7-5&oh=00_AYBd4mQq-bCsCkzCTlQG1vKGReg_1Vdnf5_keJJdNLFNoA&oe=66D74071&_nc_sid=8f1549",
+    "title": "James Howlett",
+    "latestMessage": {
+      "content": "Longggggggggggggggggggggggggggggg",
+      "timestamp": 1620000000000
+    }
+  },
+  {
+    "chatId": "2",
+    "username": "user2",
+    "avatar": "https://instagram.fhan17-1.fna.fbcdn.net/v/t51.29350-15/453765494_2755442881286387_5040317745345550038_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4MTIwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fhan17-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=aTVD523QzsUQ7kNvgHkLJwn&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=MzQyNTMxOTY3MDYzMTIzNzYyOA%3D%3D.3-ccb7-5&oh=00_AYA-9C43ko-BdAitoMGHlgFMp4TBgJlrfSB5Vv8MSDul0Q&oe=66D75D04&_nc_sid=8f1549",
+    "title": "Erik Lehnsherr",
+    "latestMessage": {
+      "content": "Hi",
+      "timestamp": 1620000000000
+    }
+  },
+  {
+    "chatId": "3",
+    "username": "user3",
+    "avatar": "https://instagram.fhan17-1.fna.fbcdn.net/v/t51.29350-15/453958163_528306289540481_4094362765728591817_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4MTIwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fhan17-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=ept3_lG1i_kQ7kNvgFRv1sG&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=MzQyNTMxOTY3MDYzMTI2MjUxOQ%3D%3D.3-ccb7-5&oh=00_AYD8NehOBnM_y1E9s-4tp9MXDYa0Mr92-qjSO7UQFPeZxQ&oe=66D76357&_nc_sid=8f1549",
+    "title": "Charles Xavier",
+    "latestMessage": {
+      "content": "Hey",
+      "timestamp": 1620000000000
+    }
+  },
+  {
+    "chatId": "4",
+    "username": "user4",
+    "avatar": "https://instagram.fhan17-1.fna.fbcdn.net/v/t51.29350-15/453575635_468521302627741_3982134216111104194_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4MTIwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fhan17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=-Cxo0BuIq40Q7kNvgHCXC_6&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=MzQyNTMxOTY3MDYyMjc0NDM0MQ%3D%3D.3-ccb7-5&oh=00_AYBbspx5EwlR1Yd2StNcQjWhh5sC5rHw97iGH_hWsI_pZA&oe=66D76968&_nc_sid=8f1549",
+    "title": "Jean Grey",
+    "latestMessage": {
+      "content": "Hola",
+      "timestamp": 1620000000000
+    }
+  },
+  {
+    "chatId": "5",
+    "username": "user5",
+    "avatar": "https://instagram.fhan17-1.fna.fbcdn.net/v/t51.29350-15/453875027_498575119518878_3386788568645477600_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4MTIwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fhan17-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=Zxye8iPZPSkQ7kNvgETLNA_&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=MzQyNTMxOTY3MDYyMjczNzI0MQ%3D%3D.3-ccb7-5&oh=00_AYDkm9U3qD9Ic6kxuIfFMwhCLwoaZgV_ESfxHvsmeZHbfQ&oe=66D7671C&_nc_sid=8f1549",
+    "title": "Ororo Munroe",
+    "latestMessage": {
+      "content": "Bonjour",
+      "timestamp": 1620000000000
+    }
+  },
+  {
+    "chatId": "6",
+    "username": "user6",
+    "avatar": "https://instagram.fhan17-1.fna.fbcdn.net/v/t51.29350-15/453755762_2530033520509421_4360487793687783204_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi45NjB4MTIwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fhan17-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=BOc6XRde-4UQ7kNvgHcHf83&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=MzQyNTMxOTY3MDYzOTcxOTI4OQ%3D%3D.3-ccb7-5&oh=00_AYCwDuXD3rGlTy96gJ5LNJFNTX4WU0f2t7Q_2wBImGv5Bw&oe=66D74F2B&_nc_sid=8f1549",
+    "title": "Scott Summers",
+    "latestMessage": {
+      "content": "Ciao",
+      "timestamp": 1620000000000
+    }
+  }
+]
