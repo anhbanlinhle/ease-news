@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {View, StyleSheet, TouchableOpacity, Text, Animated} from 'react-native'
+import React from 'react'
+import {View, StyleSheet, TouchableOpacity } from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import TabItem from "./TabItem";
 
@@ -45,9 +45,9 @@ const TabBar = ({state, descriptors, navigation}) => {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            style={styles.tabBarItem}
           >
-            <TabItem isFocused={isFocused} type={label} color={options.tabBarIcon}/>
+            <TabItem isFocused={isFocused} type={label}/>
             <View style={{height: ratioH(34)}}/>
           </TouchableOpacity>
         );
@@ -69,6 +69,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: "#a6a6a6"
+  },
+  tabBarItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

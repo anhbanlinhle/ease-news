@@ -5,16 +5,16 @@ import ProfileScreen from "../../screen/ProfileScreen";
 
 const TabScreen = [
   {
-    route: "Feed", label: "Feed", screen: FeedScreen, color: '#A6A6A6'
+    route: "Feed", label: "Feed", screen: FeedScreen
   },
   {
-    route: "Reels", label: "Reels", screen: ReelsScreen, color: '#A6A6A6'
+    route: "Reels", label: "Reels", screen: ReelsScreen
   },
   {
-    route: "Trending", label: "Trending", screen: TrendingScreen, color: '#A6A6A6'
+    route: "Trending", label: "Trending", screen: TrendingScreen
   },
   {
-    route: "Profile", label: "Profile", screen: ProfileScreen, color: '#A6A6A6'
+    route: "Profile", label: "Profile", screen: ProfileScreen
   }
 ]
 
