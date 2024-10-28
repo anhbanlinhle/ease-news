@@ -4,25 +4,25 @@ import Icons from "../../../constants/Icons";
 
 const TabIcon = ({screen, color, size}) => {
   switch (screen) {
-    case "Contacts":
+    case "Feed":
       return (
         <View style={styles.container}>
           <Icons.Contact width={size} height={size} stroke={color} strokeWidth={"2.5"}/>
         </View>
       )
-    case "Chats":
+    case "Reels":
       return (
         <View style={styles.container}>
           <Icons.Chat width={size} height={size} stroke={color} strokeWidth={"2.5"}/>
         </View>
       )
-    case "Calls":
+    case "Trending":
       return (
         <View style={styles.container}>
           <Icons.Call width={size} height={size} stroke={color} strokeWidth={"2"}/>
         </View>
       )
-    case "Stories":
+    case "Profile":
       return (
         <View style={styles.container}>
           <Icons.Story width={size} height={size} fill={color} strokeWidth={"2"}/>
