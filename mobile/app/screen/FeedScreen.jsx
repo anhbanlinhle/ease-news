@@ -1,14 +1,11 @@
 import React from 'react'
-import {View, StyleSheet, Text, Alert} from 'react-native'
-import {useCalendarEvents} from "../../hooks/useCalendarEvents";
+import {View, StyleSheet, Text} from 'react-native'
 
-const StoryScreen = () => {
-  const events = useCalendarEvents()
-
+const FeedScreen = () => {
   return (
     <View style={styles.container}>
       <Text>
-        {JSON.stringify(events)}
+        Feed Screen
       </Text>
     </View>
   )
@@ -23,4 +20,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default StoryScreen
+export default FeedScreen

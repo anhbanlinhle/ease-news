@@ -1,36 +1,25 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import Icons from "../../../constants/Icons";
+import {ratioH, ratioW} from "../../../utils/converter";
 
-const TabIcon = ({screen, color, size}) => {
-  switch (screen) {
-    case "Contacts":
-      return (
-        <View style={styles.container}>
-          <Icons.Contact width={size} height={size} stroke={color} strokeWidth={"2.5"}/>
-        </View>
-      )
-    case "Chats":
-      return (
-        <View style={styles.container}>
-          <Icons.Chat width={size} height={size} stroke={color} strokeWidth={"2.5"}/>
-        </View>
-      )
-    case "Calls":
-      return (
-        <View style={styles.container}>
-          <Icons.Call width={size} height={size} stroke={color} strokeWidth={"2"}/>
-        </View>
-      )
-    case "Stories":
-      return (
-        <View style={styles.container}>
-          <Icons.Story width={size} height={size} fill={color} strokeWidth={"2"}/>
-        </View>
-      )
-    default:
-      return null
-  }
+const iconMap = {
+  Feed: { focused: Icons.FeedFocused, default: Icons.Feed, size: { width: ratioW(22), height: ratioH(22) } },
+  Reels: { focused: Icons.ReelsFocused, default: Icons.Reels, size: { width: ratioW(26), height: ratioH(26) } },
+  Trending: { focused: Icons.TrendingFocused, default: Icons.Trending, size: { width: ratioW(22), height: ratioH(22) } },
+  Profile: { focused: Icons.ProfileFocused, default: Icons.Profile, size: { width: ratioW(22), height: ratioH(22) } },
+};
+
+const TabIcon = ({screen, focus}) => {
+  const icon = iconMap[screen];
+  if (!icon) return null;
+
+  const IconComponent = focus ? icon.focused : icon.default;
+  return (
+    <View style={styles.container}>
+      <IconComponent width={icon.size.width} height={icon.size.height} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -38,7 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-})
 
+});
 
-export default TabIcon
+export default TabIcon;

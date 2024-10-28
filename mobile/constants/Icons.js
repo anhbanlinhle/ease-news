@@ -1,20 +1,21 @@
-import SampleIcon from '../assets/icons/likeEmoji.svg';
-import Logo from '../assets/icons/logo.svg';
-import Menu from '../assets/icons/menu.svg';
-import Edit from '../assets/icons/edit.svg';
-import Contact from '../assets/icons/contact.svg';
-import Chat from '../assets/icons/chat.svg';
-import Call from '../assets/icons/call.svg';
-import Story from '../assets/icons/story.svg';
+import Feed from '../assets/icons/feed0.svg'
+import Reels from '../assets/icons/reels0.svg'
+import Trending from '../assets/icons/trending0.svg'
+import Profile from '../assets/icons/profile0.svg'
+import FeedFocused from '../assets/icons/feed1.svg'
+import ReelsFocused from '../assets/icons/reels1.svg'
+import TrendingFocused from '../assets/icons/trending1.svg'
+import ProfileFocused from '../assets/icons/profile1.svg'
+
 const Icons = {
-    SampleIcon,
-    Logo,
-    Menu,
-    Edit,
-    Contact,
-    Chat,
-    Call,
-    Story
+    Feed,
+    Reels,
+    Trending,
+    Profile,
+    FeedFocused,
+    ReelsFocused,
+    TrendingFocused,
+    ProfileFocused
 }
 
 export default Icons
