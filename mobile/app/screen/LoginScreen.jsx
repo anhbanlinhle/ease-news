@@ -1,143 +1,77 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from "react";
+import { View, StyleSheet, Button, Text, Keyboard } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  Keyboard,
-  Platform, Pressable
-} from 'react-native'
-import AppInput from "../components/AppInput";
-import AppButton from "../components/AppButton";
-import {useNavigation} from "@react-navigation/native";
-import {ratioH, ratioW} from "../../utils/converter";
-import Icons from "../../constants/Icons";
+	GoogleSignin,
+	statusCodes,
+	GoogleSigninButton,
+	isSuccessResponse,
+} from "@react-native-google-signin/google-signin";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/Loading";
-import Fonts from "../../constants/Fonts";
 
 const LoginScreen = () => {
-  const navigation = useNavigation()
+	const navigation = useNavigation();
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [enableLogin, setEnableLogin] = useState(false)
+	const [email, setEmail] = useState("");
+	const [name, setName] = useState("");
+	const [tokenId, setTokenId] = useState("");
 
-  const loading = useRef(null)
+	const loading = useRef(null);
 
-  useEffect(() => {
-    setEnableLogin(username.length > 0 && password.length > 0)
-  }, [username, password]);
+	useEffect(() => {
+		GoogleSignin.configure({
+			iosClientId:
+				"686488690067-7nooi5ccq485bfqvcqie1eobtct7eqne.apps.googleusercontent.com",
+			webClientId:
+				"686488690067-97o9n75n08u48k2eljc68makj2reljk7.apps.googleusercontent.com",
+		});
+	}, []);
 
-  const handleLogin = () => {
-    Keyboard.dismiss()
-    loading.current.show()
-    setTimeout(() => {
-      loading.current.hide()
-      navigation.navigate('Home')
-    }, 2000)
-  }
+	const handleLogin = async () => {
+		Keyboard.dismiss();
+		loading.current.show();
+		try {
+			await GoogleSignin.hasPlayServices();
+			const userInfo = await GoogleSignin.signIn();
+			if (isSuccessResponse(userInfo)) {
+				console.log(JSON.stringify(userInfo));
+				await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+				navigation.navigate("Home");
+			}
+		} catch (error) {
+			if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+				console.log("User cancelled the login flow");
+			} else if (error.code === statusCodes.IN_PROGRESS) {
+				console.log("Sign in is in progress already");
+			} else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+				console.log("Play services not available or outdated");
+			} else {
+				console.log("Some other error happened: " + error.message);
+			}
+		} finally {
+			loading.current.hide();
+		}
+	};
 
-  const renderLogo = () => {
-    return (
-      <View style={styles.logoContainer}>
-        <Icons.Logo width={ratioH(200)} height={ratioH(200)}/>
-      </View>
-    )
-  }
-
-  const renderButtons = () => {
-    return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardContainer}
-      >
-        <AppInput
-          placeholder="username"
-          customStyles={styles.textInputStyle}
-          onChange={(text) => setUsername(text)}
-        />
-        <AppInput
-          placeholder="password"
-          customStyles={styles.textInputStyle}
-          onChange={(text) => setPassword(text)}
-          isPassword
-        />
-        <AppButton
-          label='Chat!'
-          customStyles={styles.buttonStyle}
-          onPress={() => handleLogin()}
-          enabled={enableLogin}
-        />
-      </KeyboardAvoidingView>
-    )
-  }
-
-  const renderTermsAndConditions = () => {
-    return (
-      <View style={styles.termsContainer}>
-        <Text style={styles.termsText}>
-          By using this app, you agree to our {' '}
-        </Text>
-        <TouchableOpacity>
-          <Text style={styles.termsLink}>
-            Terms & Conditions
-          </Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  return (
-    <View style={styles.container}>
-      <Pressable
-        style={styles.container}
-        onPress={Keyboard.dismiss}
-      >
-        {renderLogo()}
-        {renderButtons()}
-        {renderTermsAndConditions()}
-      </Pressable>
-      <Loading ref={loading}/>
-    </View>
-  )
-}
+	return (
+		<View style={styles.container}>
+			<Loading ref={loading} />
+			<GoogleSigninButton onPress={handleLogin} />
+			<Text>{email}</Text>
+			<Text>{name}</Text>
+			<Text>{tokenId}</Text>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#8cbeea",
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  keyboardContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoContainer: {
-    marginBottom: ratioH(48)
-  },
-  textInputStyle: {
-    backgroundColor: '#fff6e9'
-  },
-  buttonStyle: {
-    backgroundColor: '#001c4b',
-    marginTop: ratioH(24)
-  },
-  termsContainer: {
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: ratioH(80)
-  },
-  termsText: {
-    color: '#001c4b',
-    ...Fonts.lightItalic
-  },
-  termsLink: {
-    color: '#b85c3c',
-    ...Fonts.lightItalic
-  }
-})
+	container: {
+		flex: 1,
+		backgroundColor: "#8cbeea",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+});
 
-export default LoginScreen
+export default LoginScreen;
