@@ -25,6 +25,7 @@ const Filter = () => {
         data={catgories}
         keyExtractor={(item, index) => index.toString()}
         horizontal={true}
+        showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={{width: ratioW(8)}}/>}
         renderItem={({item}) =>
           <FilterItem

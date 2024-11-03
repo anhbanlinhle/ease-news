@@ -10,6 +10,8 @@ import Filter from '../assets/icons/filter.svg'
 import Search from '../assets/icons/search.svg'
 import Voice from '../assets/icons/voice.svg'
 import Pin from '../assets/icons/pin.svg'
+import Live from '../assets/icons/live.svg'
+import Speech from '../assets/icons/speech.svg'
 
 const Icons = {
     Feed,
@@ -23,7 +25,9 @@ const Icons = {
     Filter,
     Search,
     Voice,
-    Pin
+    Pin,
+    Live,
+    Speech,
 }
 
 export default Icons

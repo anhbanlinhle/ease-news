@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, Text, FlatList} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
-import SmallNews from "./SmallNews";
+import SmallNews from "../../components/thumbnails/SmallNews";
 import Icons from "../../../constants/Icons";
 
 const data = [

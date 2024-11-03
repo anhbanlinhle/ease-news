@@ -1,6 +1,6 @@
 import FeedScreen from "../../screen/Feed/FeedScreen";
 import ReelsScreen from "../../screen/ReelsScreen";
-import TrendingScreen from "../../screen/TrendingScreen";
+import TrendingScreen from "../../screen/Trending/TrendingScreen";
 import ProfileScreen from "../../screen/ProfileScreen";
 
 const TabScreen = [
