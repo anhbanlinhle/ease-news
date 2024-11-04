@@ -18,7 +18,6 @@ const catgories = [
 
 const Filter = () => {
   const [currentFilter, setCurrentFilter] = useState(catgories[0] || 'All');
-  console.log(currentFilter)
   return (
     <View style={styles.container}>
       <FlatList

@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Text, SafeAreaView} from 'react-native'
 import {ScrollView} from "react-native-gesture-handler";
 import {ratioH} from "../../../utils/converter";
-import Header from "./Header";
+import Header from "../../components/Header";
 import Section from "./Section";
 
 const data1 = [
@@ -51,7 +51,7 @@ const TrendingScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Header/>
+        <Header title={'Xu hướng'}/>
         <Section title={'ĐANG ĐƯỢC QUAN TÂM'} data={data1}/>
         <Section title={'NÓNG 24H'} data={data2}/>
       </ScrollView>
