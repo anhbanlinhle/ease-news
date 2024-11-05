@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
+import RegisterScreen from "./RegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,7 @@ const MainScreen = () => {
 
 	useEffect(() => {
 		const checkLoginStatus = async () => {
-			const userInfo = await AsyncStorage.getItem("userInfo");
+			const userInfo = await AsyncStorage.getItem("userInfos");
 			if (userInfo) {
 				setInitialRoute("Home");
 			} else {
@@ -43,6 +44,7 @@ const MainScreen = () => {
 				initialRouteName={initialRoute}
 			>
 				<Stack.Screen name="Login" component={LoginScreen} />
+				<Stack.Screen name="Register" component={RegisterScreen} />
 				<Stack.Screen name="Home" component={HomeScreen} />
 			</Stack.Navigator>
 		</View>
