@@ -1,7 +1,7 @@
-import FeedScreen from "../../screen/FeedScreen";
+import FeedScreen from "../../screen/Feed/FeedScreen";
 import ReelsScreen from "../../screen/ReelsScreen";
-import TrendingScreen from "../../screen/TrendingScreen";
-import ProfileScreen from "../../screen/ProfileScreen";
+import TrendingScreen from "../../screen/Trending/TrendingScreen";
+import ProfileScreen from "../../screen/Profile/ProfileScreen";
 
 const TabScreen = [
   {
