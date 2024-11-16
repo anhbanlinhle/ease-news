@@ -9,8 +9,8 @@ const app = express()
 const port = process.env.PORT || 1111
 const cors = require("cors")
 
-app.use(cors({ 
-  credentials: true, 
+app.use(cors({
+  credentials: true,
   origin: true
 }))
 
@@ -20,8 +20,8 @@ app.use(session({
   saveUninitialized: true
 }))
 
-app.use(express.urlencoded({ 
-  extended: true 
+app.use(express.urlencoded({
+  extended: true
 }))
 
 app.use(express.json())
