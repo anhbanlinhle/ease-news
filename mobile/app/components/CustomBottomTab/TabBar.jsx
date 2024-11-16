@@ -48,7 +48,7 @@ const TabBar = ({state, descriptors, navigation}) => {
             style={styles.tabBarItem}
           >
             <TabItem isFocused={isFocused} type={label}/>
-            <View style={{height: ratioH(34)}}/>
+            <View style={{height: ratioH(14)}}/>
           </TouchableOpacity>
         );
       })}
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: ratioW(375),
-    height: ratioH(96),
+    height: ratioH(96 - 14),
     position: 'absolute',
     alignSelf: 'center',
     bottom: 0,

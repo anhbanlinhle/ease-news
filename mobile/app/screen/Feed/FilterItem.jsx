@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: focus ? '#ffb3b6' : '#e8e8ee',
     paddingHorizontal: ratioW(16),
-    paddingVertical: ratioH(8),
   }),
   root: {
     flexDirection: 'row',
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     marginRight: ratioW(4),
   },
   text: (focus) => ({
-    fontSize: ratioW(12),
+    fontSize: ratioH(12),
     fontFamily: "Arial",
     color: focus ? 'white' : 'black',
   })
