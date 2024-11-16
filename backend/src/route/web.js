@@ -9,6 +9,8 @@ const initWebRoute = (app) => {
   // section - health 
   router.get('/health/db', homeController.dbHealth)
 
+  router.get('/news/mocks', homeController.mockNews)
+
   return app.use('/', router)
 }
 

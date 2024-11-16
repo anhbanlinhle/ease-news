@@ -2,6 +2,7 @@ import { config } from 'dotenv'
 config()
 
 import { dbHealth } from './health/dbHealth'
+import { mockNews } from './news/getMockNews'
 
 let homepage = async (req, res) => {
   console.log(
@@ -28,5 +29,6 @@ let homepage = async (req, res) => {
 
 module.exports = {
   homepage,
-  dbHealth
+  dbHealth,
+  mockNews,
 }
