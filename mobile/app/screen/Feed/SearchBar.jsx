@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
     borderColor: '#e8e8ee',
     marginLeft: ratioW(16),
     marginTop: ratioH(8),
-    justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
     width: ratioW(273),
+    height: ratioH(40),
     marginLeft: ratioW(16),
   },
   icon: {

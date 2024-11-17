@@ -3,6 +3,8 @@ config()
 
 import { dbHealth } from './health/dbHealth'
 import { allNews } from './news/getAllNews'
+import { allCategories } from './news/getAllCategories'
+import { getNewsByCategories } from './news/getNewsByCategories'
 
 let homepage = async (req, res) => {
   console.log(
@@ -31,4 +33,6 @@ module.exports = {
   homepage,
   dbHealth,
   allNews,
+  allCategories,
+  getNewsByCategories,
 }

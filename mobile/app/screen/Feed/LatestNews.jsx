@@ -2,41 +2,12 @@ import React from 'react'
 import {View, StyleSheet, Text, FlatList} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import BigNews from "../../components/thumbnails/BigNews";
-
-const data = [
-  {
-    cover: "https://s3-alpha-sig.figma.com/img/1b25/3b61/593c0eac981b4da390568868d72bc803?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=msisILkLMuCy75khAtMh14wkPee2LfLqLnuQKvpzCWihE2qZwx6UnU4UOk4SzI5iyF-Olu7g-pUx-RWlL2fbH0GVce91UnJckIgmLqEBrUvSA16T7mwOSShuQc-gsZVumOPLV~rTw36AYrYwGdnJnBzja4cBW8I4cOA26e7gqtwQJe41udqxBZLkEdVIUIbuIIn5sHeC~ClRGNLmuJfF9KMUMHilK~97s7xvYW-amFynxeMvlwZQ6yOuWRVAOGdLslqOJwOGBTEsvYMs63LNu9RQION68ZtP8iYPOJlixRhEAP8C4YOxjqMfh1EBUWW6VELpaRRd472rxoghe5KQNA__",
-    title: `Crypto investors should be prepared to lose all their money, BOE governor says`,
-    author: "Ryan Browne",
-    summary: `“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”`,
-  },
-  {
-    cover: "https://s3-alpha-sig.figma.com/img/1b25/3b61/593c0eac981b4da390568868d72bc803?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=msisILkLMuCy75khAtMh14wkPee2LfLqLnuQKvpzCWihE2qZwx6UnU4UOk4SzI5iyF-Olu7g-pUx-RWlL2fbH0GVce91UnJckIgmLqEBrUvSA16T7mwOSShuQc-gsZVumOPLV~rTw36AYrYwGdnJnBzja4cBW8I4cOA26e7gqtwQJe41udqxBZLkEdVIUIbuIIn5sHeC~ClRGNLmuJfF9KMUMHilK~97s7xvYW-amFynxeMvlwZQ6yOuWRVAOGdLslqOJwOGBTEsvYMs63LNu9RQION68ZtP8iYPOJlixRhEAP8C4YOxjqMfh1EBUWW6VELpaRRd472rxoghe5KQNA__",
-    title: `Crypto investors should be prepared to lose all their money, BOE governor says`,
-    author: "Ryan Browne",
-    summary: `“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”`,
-  },
-  {
-    cover: "https://s3-alpha-sig.figma.com/img/1b25/3b61/593c0eac981b4da390568868d72bc803?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=msisILkLMuCy75khAtMh14wkPee2LfLqLnuQKvpzCWihE2qZwx6UnU4UOk4SzI5iyF-Olu7g-pUx-RWlL2fbH0GVce91UnJckIgmLqEBrUvSA16T7mwOSShuQc-gsZVumOPLV~rTw36AYrYwGdnJnBzja4cBW8I4cOA26e7gqtwQJe41udqxBZLkEdVIUIbuIIn5sHeC~ClRGNLmuJfF9KMUMHilK~97s7xvYW-amFynxeMvlwZQ6yOuWRVAOGdLslqOJwOGBTEsvYMs63LNu9RQION68ZtP8iYPOJlixRhEAP8C4YOxjqMfh1EBUWW6VELpaRRd472rxoghe5KQNA__",
-    title: `Crypto investors should be prepared to lose all their money, BOE governor says`,
-    author: "Ryan Browne",
-    summary: `“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”`,
-  },
-  {
-    cover: "https://s3-alpha-sig.figma.com/img/1b25/3b61/593c0eac981b4da390568868d72bc803?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=msisILkLMuCy75khAtMh14wkPee2LfLqLnuQKvpzCWihE2qZwx6UnU4UOk4SzI5iyF-Olu7g-pUx-RWlL2fbH0GVce91UnJckIgmLqEBrUvSA16T7mwOSShuQc-gsZVumOPLV~rTw36AYrYwGdnJnBzja4cBW8I4cOA26e7gqtwQJe41udqxBZLkEdVIUIbuIIn5sHeC~ClRGNLmuJfF9KMUMHilK~97s7xvYW-amFynxeMvlwZQ6yOuWRVAOGdLslqOJwOGBTEsvYMs63LNu9RQION68ZtP8iYPOJlixRhEAP8C4YOxjqMfh1EBUWW6VELpaRRd472rxoghe5KQNA__",
-    title: `Crypto investors should be prepared to lose all their money, BOE governor says`,
-    author: "Ryan Browne",
-    summary: `“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”`,
-  },
-  {
-    cover: "https://s3-alpha-sig.figma.com/img/1b25/3b61/593c0eac981b4da390568868d72bc803?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=msisILkLMuCy75khAtMh14wkPee2LfLqLnuQKvpzCWihE2qZwx6UnU4UOk4SzI5iyF-Olu7g-pUx-RWlL2fbH0GVce91UnJckIgmLqEBrUvSA16T7mwOSShuQc-gsZVumOPLV~rTw36AYrYwGdnJnBzja4cBW8I4cOA26e7gqtwQJe41udqxBZLkEdVIUIbuIIn5sHeC~ClRGNLmuJfF9KMUMHilK~97s7xvYW-amFynxeMvlwZQ6yOuWRVAOGdLslqOJwOGBTEsvYMs63LNu9RQION68ZtP8iYPOJlixRhEAP8C4YOxjqMfh1EBUWW6VELpaRRd472rxoghe5KQNA__",
-    title: `Crypto investors should be prepared to lose all their money, BOE governor says`,
-    author: "Ryan Browne",
-    summary: `“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”`,
-  }
-]
+import {useSelector} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 
 const LatestNews = () => {
+  const newsData = useSelector((state) => state.newsData.news);
+  const navigation = useNavigation();
   const renderHeader = () => {
     return (
       <View style={styles.header}>
@@ -49,7 +20,7 @@ const LatestNews = () => {
     return (
       <FlatList
         style={styles.news}
-        data={data}
+        data={newsData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
@@ -61,7 +32,10 @@ const LatestNews = () => {
               title={item.title}
               author={item.author}
               summary={item.summary}
-              />
+              onPress={() => {
+                navigation.navigate('Article', item)
+              }}
+            />
           )
         }}
       />
