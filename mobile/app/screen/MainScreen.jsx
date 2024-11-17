@@ -6,11 +6,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 import RegisterScreen from "./RegisterScreen";
+import ArticleScreen from "./Article/ArticleScreen";
 
 const Stack = createStackNavigator();
 
 const MainScreen = () => {
-	const [initialRoute, setInitialRoute] = useState(null);
+	const [initialRoute, setInitialRoute] = useState("Home");
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -41,11 +42,12 @@ const MainScreen = () => {
 				screenOptions={{
 					headerShown: false,
 				}}
-				initialRouteName={initialRoute}
+				initialRouteName={"Home"}
 			>
 				<Stack.Screen name="Login" component={LoginScreen} />
 				<Stack.Screen name="Register" component={RegisterScreen} />
 				<Stack.Screen name="Home" component={HomeScreen} />
+				<Stack.Screen name={"Article"} component={ArticleScreen} />
 			</Stack.Navigator>
 		</View>
 	);

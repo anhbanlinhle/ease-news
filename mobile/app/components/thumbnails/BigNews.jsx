@@ -3,9 +3,12 @@ import {View, StyleSheet, ImageBackground, Text, TouchableOpacity} from 'react-n
 import {ratioH, ratioW} from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 
-const BigNews = ({cover, title, author, summary}) => {
+const BigNews = ({cover, title, author, summary, onPress}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+    >
       <ImageBackground
         source={{uri: cover}}
         style={styles.container}
@@ -17,12 +20,18 @@ const BigNews = ({cover, title, author, summary}) => {
         <Text style={styles.author}>
           {author}
         </Text>
-        <Text style={styles.title}>
+        <Text
+          numberOfLines={2}
+          style={styles.title}
+        >
           {title}
         </Text>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.summary}>
+        <Text
+          numberOfLines={3}
+          style={styles.summary}
+        >
           {summary}
         </Text>
       </View>

@@ -14,6 +14,7 @@ import Live from '../assets/icons/live.svg'
 import Speech from '../assets/icons/speech.svg'
 import Right from '../assets/icons/right.svg'
 import Logout from '../assets/icons/logout.svg'
+import Back from '../assets/icons/back.svg'
 
 const Icons = {
     Feed,
@@ -31,7 +32,8 @@ const Icons = {
     Live,
     Speech,
     Right,
-    Logout
+    Logout,
+    Back,
 }
 
 export default Icons
