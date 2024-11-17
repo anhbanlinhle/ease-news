@@ -10,6 +10,8 @@ const initWebRoute = (app) => {
   router.get('/health/db', homeController.dbHealth)
 
   router.get('/news/all', homeController.allNews)
+  router.get('/news/categories', homeController.allCategories)
+  router.post('/news/category', homeController.getNewsByCategories)
 
   return app.use('/', router)
 }
