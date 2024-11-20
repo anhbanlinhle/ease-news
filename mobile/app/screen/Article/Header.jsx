@@ -4,17 +4,21 @@ import {ratioH, ratioW} from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Icons from "../../../constants/Icons";
 import {useNavigation} from "@react-navigation/native";
+import Tts from "react-native-tts";
 
-const Header = () => {
+const Header = ({onSpeech}) => {
   const navigation = useNavigation()
   return (
     <View style={styles.header}>
       <TouchableOpacity
         style={styles.iconBack}
-        onPress={() => navigation.goBack()}>
+        onPress={() => {
+          Tts.stop()
+          navigation.goBack()
+        }}>
         <Icons.Back/>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.iconSpeechContainer}>
+      <TouchableOpacity onPress={onSpeech} style={styles.iconSpeechContainer}>
         <LinearGradient colors={['#ff3a44', '#ff8086']} style={styles.iconSpeech}>
           <Icons.Speech/>
         </LinearGradient>

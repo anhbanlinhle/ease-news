@@ -1,14 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {ratioH, ratioW} from "../../utils/converter";
 import Icons from "../../constants/Icons";
 import LinearGradient from "react-native-linear-gradient";
+import Tts from "react-native-tts"
 
 const Header = ({title}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <TouchableOpacity style={styles.iconContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          Tts.speak('Xin chào buổi sáng')
+        }}
+        style={styles.iconContainer}>
         <LinearGradient colors={['#ff3a44', '#ff8086']} style={styles.icon}>
           <Icons.Speech/>
         </LinearGradient>

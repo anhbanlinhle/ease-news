@@ -1,14 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {View, StyleSheet, SafeAreaView, Image, Text, TouchableOpacity} from 'react-native'
 import {useNavigation} from "@react-navigation/native";
 import {ScrollView} from "react-native-gesture-handler";
 import {formatTimestamp, ratioH, ratioW} from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Header from "./Header";
+import Tts from "react-native-tts";
 
 const ArticleScreen = ({ route }) => {
   const navigation = useNavigation()
   const { author, categories, content, summary, cover, timestamp, title } = route.params
+
+  useEffect(() => {
+    Tts.setDefaultLanguage('vi-VN')
+  }, []);
 
   const renderContent = () => {
     return (
@@ -32,7 +37,7 @@ const ArticleScreen = ({ route }) => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header onSpeech={() => Tts.speak(content)} />
       {renderContent()}
     </SafeAreaView>
   )
