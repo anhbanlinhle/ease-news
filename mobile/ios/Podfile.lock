@@ -1657,6 +1657,8 @@ PODS:
   - RNSVG (15.8.0):
     - React-Core
   - SocketRocket (0.7.0)
+  - TextToSpeech (4.1.1):
+    - React-Core
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1733,6 +1735,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1887,6 +1890,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  TextToSpeech:
+    :path: "../node_modules/react-native-tts"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1967,6 +1972,7 @@ SPEC CHECKSUMS:
   RNScreens: c7ceced6a8384cb9be5e7a5e88e9e714401fd958
   RNSVG: 8b1a777d54096b8c2a0fd38fc9d5a454332bbb4d
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
+  TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
   Yoga: aa3df615739504eebb91925fc9c58b4922ea9a08
 
 PODFILE CHECKSUM: 62c2e98a346712a42ab89647057cccdd07d4d9bb

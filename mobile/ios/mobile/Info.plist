@@ -25,17 +25,6 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
-	<key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-              <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.googleusercontent.apps.686488690067-7nooi5ccq485bfqvcqie1eobtct7eqne</string>
-            </array>
-        </dict>
-		</array>
 	<dict>
 	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
