@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
 	View,
 	StyleSheet,
@@ -6,9 +6,9 @@ import {
 	Image,
 	Text,
 	TouchableOpacity,
+	ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
 import { formatTimestamp, ratioH, ratioW } from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Header from "./Header";
@@ -20,9 +20,38 @@ const ArticleScreen = ({ route }) => {
 		route.params;
 
 	const NO_WIDTH_SPACE = " ";
+	const [currentWordIndex, setCurrentWordIndex] = useState(null);
+	const wordsRef = content ? useRef(content.split(" ")) : useRef([]);
 
 	useEffect(() => {
 		Tts.setDefaultLanguage("vi-VN");
+		Tts.setDefaultRate(0.6, true);
+
+		const handleTtsProgress = (event) => {
+			const { end } = event;
+			const text = content; // Ensure content is a string
+			if (text) {
+				const words = text.split(" ");
+				let charCount = 0;
+				let currentWord = null;
+
+				for (let i = 0; i < words.length; i++) {
+					charCount += words[i].length + 1; // +1 for the space
+					if (charCount >= end) {
+						currentWord = i;
+						break;
+					}
+				}
+
+				setCurrentWordIndex(currentWord);
+			}
+		};
+
+		Tts.addEventListener("tts-progress", handleTtsProgress);
+
+		// return () => {
+		// 	Tts.removeEventListener("tts-progress");
+		// };
 	}, []);
 
 	const highlightReduplication = (content) => {
@@ -32,6 +61,23 @@ const ArticleScreen = ({ route }) => {
 					{item.phrase}
 				</Text>
 				{NO_WIDTH_SPACE}
+			</Text>
+		));
+	};
+
+	const highlightCurrentIndex = () => {
+		return wordsRef.current.map((word, index) => (
+			<Text
+				key={index}
+				style={
+					index === currentWordIndex
+						? styles.currentWord
+						: index < currentWordIndex
+						? styles.previousWord
+						: styles.contentText
+				}
+			>
+				{word} {NO_WIDTH_SPACE}
 			</Text>
 		));
 	};
@@ -76,13 +122,13 @@ const ArticleScreen = ({ route }) => {
 						<Text style={styles.author}>Đăng bởi {author}</Text>
 					</LinearGradient>
 					<Text style={styles.contentText}>
-						{highlightReduplication(testContentJson)}
-						{/* {highlightReduplication(contentAfterCheckReduplication)} */}
+						{highlightCurrentIndex(content)}
 					</Text>
 				</View>
 			</ScrollView>
 		);
 	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<Header onSpeech={() => Tts.speak(content)} />
@@ -140,6 +186,12 @@ const styles = StyleSheet.create({
 	},
 	highlightReduplication: {
 		backgroundColor: "yellow",
+	},
+	currentWord: {
+		backgroundColor: "lightblue",
+	},
+	previousWord: {
+		backgroundColor: "lightgray",
 	},
 });
 
