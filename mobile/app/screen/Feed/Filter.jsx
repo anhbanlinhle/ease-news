@@ -5,12 +5,19 @@ import FilterItem from "./FilterItem";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllCategoriesAction, getNewsAction, getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
 
-const Filter = () => {
-  const categories = useSelector((state) => state.newsData.categories);
+const Filter = ({onChange}) => {
+  const [categories, setCategories] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('Lọc');
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllCategoriesAction())
+    dispatch(getAllCategoriesAction({
+      onSuccess: (categories) => {
+        setCategories(categories)
+      },
+      onError: (error) => {
+        console.log(error)
+      }
+    }))
   }, []);
   return (
     <View style={styles.container}>
@@ -26,12 +33,7 @@ const Filter = () => {
             focus={item === currentFilter}
             onPress={() => {
               setCurrentFilter(item)
-              if (item === "Lọc") {
-                dispatch(getNewsAction())
-              }
-              else {
-                dispatch(getNewsByCategoryAction(item));
-              }
+              onChange(item)
             }}
           />
         }

@@ -1,12 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, StyleSheet, Text, FlatList} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import BigNews from "../../components/thumbnails/BigNews";
 import {useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 
-const LatestNews = () => {
-  const newsData = useSelector((state) => state.newsData.news);
+const LatestNews = ({data}) => {
   const navigation = useNavigation();
   const renderHeader = () => {
     return (
@@ -20,7 +19,7 @@ const LatestNews = () => {
     return (
       <FlatList
         style={styles.news}
-        data={newsData}
+        data={data}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
