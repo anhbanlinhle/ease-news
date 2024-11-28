@@ -6,7 +6,7 @@ import {
 	Image,
 	Text,
 	TouchableOpacity,
-	ScrollView,
+	ScrollView, Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { formatTimestamp, ratioH, ratioW } from "../../../utils/converter";
@@ -28,7 +28,7 @@ const ArticleScreen = ({ route }) => {
 		Tts.setDefaultRate(0.6, true);
 
 		const handleTtsProgress = (event) => {
-			const { end } = event;
+			const end = Platform.OS === 'ios' ? event?.location : event?.end;
 			const text = content; // Ensure content is a string
 			if (text) {
 				const words = text.split(" ");
