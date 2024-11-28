@@ -14,7 +14,7 @@ const Filter = ({onChange}) => {
       onSuccess: (categories) => {
         setCategories(categories)
       },
-      onError: (error) => {
+      onFail: (error) => {
         console.log(error)
       }
     }))

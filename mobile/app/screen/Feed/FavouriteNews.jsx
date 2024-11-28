@@ -5,10 +5,12 @@ import SmallNews from "../../components/thumbnails/SmallNews";
 import Icons from "../../../constants/Icons";
 import {useDispatch} from "react-redux";
 import {getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
+import {useNavigation} from "@react-navigation/native";
 
 const FavouriteNews = () => {
   const [newsData, setNewsData] = useState([]);
   const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   useEffect(() => {
     dispatch(getNewsByCategoryAction({
@@ -42,6 +44,9 @@ const FavouriteNews = () => {
               title={item?.title}
               author={item?.author}
               timestamp={item?.timestamp}
+              onPress={() => {
+                navigation.navigate('Article', item)
+              }}
             />
           )
         }}

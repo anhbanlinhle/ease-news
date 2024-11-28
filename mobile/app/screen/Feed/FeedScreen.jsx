@@ -20,7 +20,7 @@ const FeedScreen = () => {
         onSuccess: (data) => {
           setNewsData(data)
         },
-        onError: (error) => {
+        onFail: (error) => {
           console.log(error)
         }
       }))
@@ -31,7 +31,7 @@ const FeedScreen = () => {
         onSuccess: (data) => {
           setNewsData(data)
         },
-        onError: (error) => {
+        onFail: (error) => {
           console.log(error)
         }
       }))
