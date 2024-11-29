@@ -6,7 +6,7 @@ import {
 	Image,
 	Text,
 	TouchableOpacity,
-	ScrollView,
+	ScrollView, Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { formatTimestamp, ratioH, ratioW } from "../../../utils/converter";
@@ -20,39 +20,33 @@ const ArticleScreen = ({ route }) => {
 		route.params;
 
 	const NO_WIDTH_SPACE = " ";
-	const [currentWordIndex, setCurrentWordIndex] = useState(null);
-	const wordsRef = content ? useRef(content.split(" ")) : useRef([]);
+
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const coloredTextRef = useRef([]);
+	const currentWordRef = useRef(null);
+	const nonColoredTextRef = useRef(content ? content.split(" ") : []);
+
+	const previousEndRef = useRef(null);
 
 	useEffect(() => {
 		Tts.setDefaultLanguage("vi-VN");
 		Tts.setDefaultRate(0.6, true);
 
 		const handleTtsProgress = (event) => {
-			const { end } = event;
-			const text = content; // Ensure content is a string
-			if (text) {
-				const words = text.split(" ");
-				let charCount = 0;
-				let currentWord = null;
+			const end = Platform.OS === 'ios' ? event?.location : event?.end;
+			if (end !== previousEndRef.current) {
+				previousEndRef.current = end;
 
-				for (let i = 0; i < words.length; i++) {
-					charCount += words[i].length + 1; // +1 for the space
-					if (charCount >= end) {
-						currentWord = i;
-						break;
-					}
-				}
-
-				setCurrentWordIndex(currentWord);
+				coloredTextRef.current.push(currentWordRef.current?.trim());
+				currentWordRef.current = " " + nonColoredTextRef.current[0];
+				nonColoredTextRef.current = nonColoredTextRef.current.slice(1, nonColoredTextRef.current.length);
+				setCurrentIndex((prev) => prev + 1);
 			}
 		};
 
 		Tts.addEventListener("tts-progress", handleTtsProgress);
-
-		// return () => {
-		// 	Tts.removeEventListener("tts-progress");
-		// };
-	}, []);
+	}, [content, currentIndex]);
 
 	const highlightReduplication = (content) => {
 		return content.result.map((item, i) => (
@@ -61,23 +55,6 @@ const ArticleScreen = ({ route }) => {
 					{item.phrase}
 				</Text>
 				{NO_WIDTH_SPACE}
-			</Text>
-		));
-	};
-
-	const highlightCurrentIndex = () => {
-		return wordsRef.current.map((word, index) => (
-			<Text
-				key={index}
-				style={
-					index === currentWordIndex
-						? styles.currentWord
-						: index < currentWordIndex
-						? styles.previousWord
-						: styles.contentText
-				}
-			>
-				{word} {NO_WIDTH_SPACE}
 			</Text>
 		));
 	};
@@ -122,7 +99,9 @@ const ArticleScreen = ({ route }) => {
 						<Text style={styles.author}>Đăng bởi {author}</Text>
 					</LinearGradient>
 					<Text style={styles.contentText}>
-						{highlightCurrentIndex(content)}
+						<Text style={styles.previousWord}>{coloredTextRef?.current?.join(" ")}</Text>
+						<Text style={styles.currentWord}>{currentWordRef?.current}</Text>
+						<Text> {nonColoredTextRef?.current?.join(" ")}</Text>
 					</Text>
 				</View>
 			</ScrollView>

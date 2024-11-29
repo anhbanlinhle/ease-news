@@ -1,49 +1,56 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, takeLatest } from 'redux-saga/effects'
 import {
   getNewsAction,
-  getNewsFailureAction,
-  getNewsSuccessAction,
   getAllCategoriesAction,
-  getCategorySuccessAction,
   getNewsByCategoryAction
 } from "../reducers/newsSlice"
 
-function* getAllNews() {
+function* getAllNews(action) {
+  const data = action.payload?.data;
+  const onSuccess = action.payload?.onSuccess;
+  const onFail = action.payload?.onFail;
   try {
-    const response = yield call(fetch, 'http://localhost:1111/news/all')
+    const response = yield call(fetch, 'http://127.0.0.1:1111/news/all')
     const data = yield response.json()
-    yield put(getNewsSuccessAction(data))
+    onSuccess?.(data)
   }
   catch (error) {
-    yield put(getNewsFailureAction(error))
+    onFail?.(error)
   }
 }
 
-function* getAllCategories() {
+function* getAllCategories(action) {
+  const data = action.payload?.data;
+  const onSuccess = action.payload?.onSuccess;
+  const onFail = action.payload?.onFail;
   try {
-    const response = yield call(fetch, 'http://localhost:1111/news/categories')
+    const response = yield call(fetch, 'http://127.0.0.1:1111/news/categories')
     const data = yield response.json()
-    yield put(getCategorySuccessAction(data))
+    onSuccess?.(data)
   }
   catch (error) {
-    yield put(getNewsFailureAction(error))
+    onFail?.(error)
   }
 }
 
-function* getNewsByCategory({ payload }) {
+function* getNewsByCategory(action) {
+  const body = action.payload?.category;
+
+  const onSuccess = action.payload?.onSuccess;
+  const onFail = action.payload?.onFail;
   try {
-    const response = yield call(fetch, `http://localhost:1111/news/category`, {
+    const response = yield call(fetch, `http://127.0.0.1:1111/news/category`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ category: payload })
+      body: JSON.stringify({ category: body })
     })
     const data = yield response.json()
-    yield put(getNewsSuccessAction(data))
+    onSuccess?.(data)
   }
   catch (error) {
-    yield put(getNewsFailureAction(error))
+    onFail?.(error)
   }
 }
 

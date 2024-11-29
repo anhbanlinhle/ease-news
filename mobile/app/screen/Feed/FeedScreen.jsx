@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {View, StyleSheet, Text, SafeAreaView} from 'react-native'
 import Filter from "./Filter";
 import SearchBar from "./SearchBar";
@@ -6,14 +6,44 @@ import LatestNews from "./LatestNews";
 import FavouriteNews from "./FavouriteNews";
 import {ScrollView} from "react-native-gesture-handler";
 import {ratioH} from "../../../utils/converter";
+import {useDispatch} from "react-redux";
+import {getNewsAction, getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
 
 const FeedScreen = () => {
+  const dispatch = useDispatch();
+  const [currentFilter, setCurrentFilter] = useState('Lọc');
+  const [newsData, setNewsData] = useState([])
+
+  useEffect(() => {
+    if (currentFilter === 'Lọc') {
+      dispatch(getNewsAction({
+        onSuccess: (data) => {
+          setNewsData(data)
+        },
+        onFail: (error) => {
+          console.log(error)
+        }
+      }))
+    }
+    else {
+      dispatch(getNewsByCategoryAction({
+        category: currentFilter,
+        onSuccess: (data) => {
+          setNewsData(data)
+        },
+        onFail: (error) => {
+          console.log(error)
+        }
+      }))
+    }
+  }, [currentFilter]);
+
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
-          <Filter/>
+          <Filter onChange={setCurrentFilter}/>
           <SearchBar/>
-          <LatestNews/>
+          <LatestNews data={newsData}/>
           <FavouriteNews/>
         </ScrollView>
       </SafeAreaView>

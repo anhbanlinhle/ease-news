@@ -3,8 +3,11 @@ import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
 import SmallNews from "../../components/thumbnails/SmallNews";
+import {useNavigation} from "@react-navigation/native";
 
 const Section = ({title, data}) => {
+  const navigation = useNavigation()
+
   const renderHeader = () => {
     return (
       <View style={styles.header}>
@@ -30,6 +33,9 @@ const Section = ({title, data}) => {
                 title={item.title}
                 author={item.author}
                 timestamp={item.timestamp}
+                onPress={() => {
+                  navigation.navigate('Article', item)
+                }}
               />
             )
           }}
