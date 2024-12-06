@@ -7,6 +7,7 @@ import {allNews} from './news/getAllNews'
 import {allCategories} from './news/getAllCategories'
 import {getNewsByCategories} from './news/getNewsByCategories'
 import {checkReduplication} from './dictionary/checkReduplication'
+import {searchReduplication} from './dictionary/searchReduplication'
 
 let homepage = async (req, res) => {
     console.log(
@@ -37,5 +38,6 @@ module.exports = {
     allNews,
     allCategories,
     getNewsByCategories,
-    checkReduplication
+    checkReduplication,
+    searchReduplication
 }
