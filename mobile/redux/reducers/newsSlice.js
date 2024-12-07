@@ -1,13 +1,15 @@
-import {createAction} from "@reduxjs/toolkit"
+import { createAction } from "@reduxjs/toolkit";
 
-export const getNewsAction = createAction(
-  'newsData/getNewsAction'
-)
+export const getNewsAction = createAction("newsData/getNewsAction");
 
 export const getAllCategoriesAction = createAction(
-  'newsData/getAllCategoriesAction'
-)
+	"newsData/getAllCategoriesAction"
+);
 
 export const getNewsByCategoryAction = createAction(
-  'newsData/getNewsByCategoryAction'
-)
+	"newsData/getNewsByCategoryAction"
+);
+
+export const getReduplicationInNewsAction = createAction(
+	"newsData/getReduplicationInNewsAction"
+);
