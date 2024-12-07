@@ -1,3 +1,11 @@
 fastapi
 uvicorn
-torch
+transformers
+diffusers
+invisible_watermark
+accelerate
+safetensors
+sentencepiece
+huggingface_hub
+protobuf
+python-dotenv
