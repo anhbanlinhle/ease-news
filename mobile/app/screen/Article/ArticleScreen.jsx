@@ -27,57 +27,37 @@ const ArticleScreen = ({ route }) => {
 
 	const NO_WIDTH_SPACE = " ";
 
-	const testHighLightText = [
-		{
-			phrase: "Tôi thật",
-			reduplication: false,
-		},
-		{
-			phrase: "ái ngại",
-			reduplication: true,
-		},
-		{
-			phrase: "khi phải từ chối lời mời đáng",
-			reduplication: false,
-		},
-		{
-			phrase: "ái ngại",
-			reduplication: true,
-		},
-		{
-			phrase: "của anh",
-			reduplication: false,
-		},
-	];
-
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [highlightedText, setHighlightedText] = useState(testHighLightText);
+	const [highlightedText, setHighlightedText] = useState(null);
 
 	const coloredTextRef = useRef([]);
 	const currentWordRef = useRef(null);
 	const nonColoredTextRef = useRef(content ? content.split(" ") : []);
-
 	const previousEndRef = useRef(null);
+
+	const [isShowReduplication, setIsShowReduplication] = useState(false);
+	const [isSpeaking, setIsSpeaking] = useState(false);
 
 	const getReduplicationForContent = (content) => {
 		dispatch(
 			getReduplicationInNewsAction({
 				content: content,
 				onSuccess: (data) => {
-					setHighlightedText(data.result);
+					setHighlightedText(data.results);
 				},
-				onFail: (error) => console.log("Get reduplication failed", error),
+				onFail: (error) => console.log("Get reduplication failed", error)
 			})
 		);
 	};
 
 	useEffect(() => {
+		getReduplicationForContent(content);
 		Tts.setDefaultLanguage("vi-VN");
 		Tts.setDefaultRate(0.6, true);
 
 		const handleTtsProgress = (event) => {
 			const end = Platform.OS === "ios" ? event?.location : event?.end;
-			if (end !== previousEndRef.current) {
+			if (end !== previousEndRef.current && nonColoredTextRef.current.length > 0) {
 				previousEndRef.current = end;
 
 				coloredTextRef.current.push(currentWordRef.current?.trim());
@@ -93,28 +73,66 @@ const ArticleScreen = ({ route }) => {
 		Tts.addEventListener("tts-progress", handleTtsProgress);
 	}, [content, currentIndex]);
 
-	const renderHighlightedText = () => {
+	useEffect(() => {
+		if (isSpeaking) {
+			setIsShowReduplication(false);
+			Tts.speak(content);
+			Tts.resume();
+		}
+		else {
+			Tts.pause();
+		}
+	}, [isSpeaking]);
+
+	useEffect(() => {
+		if (isShowReduplication) {
+			Tts.stop();
+			nonColoredTextRef.current = content.split(" ");
+			coloredTextRef.current = [];
+			currentWordRef.current = null;
+			setCurrentIndex(0);
+		}
+	}, [isShowReduplication]);
+
+	const renderOriginalText = () => {
+		return (
+			<>
+				<Text style={styles.previousWord}>
+					{coloredTextRef?.current?.join(" ")}
+				</Text>
+				<Text style={styles.currentWord}>{currentWordRef?.current}</Text>
+				<Text> {nonColoredTextRef?.current?.join(" ")}</Text>
+			</>
+		);
+	};
+
+	const renderDuplicateHighlightedText = () => {
 		if (!highlightedText) {
 			return content;
 		}
-		return highlightedText.map((item, index) => {
-			const textElement = (
-				<Text
-					key={index}
-					style={item.reduplication ? styles.highlightReduplication : null}
-					onPress={
-						item.reduplication
-							? () => console.log(`Pressed: ${item.phrase}`)
-							: null
-					}
-				>
-					{item.phrase}
+		return (
+			<Text style={styles.contentText}>
+				{highlightedText.map((item, index) => {
+					const textElement = (
+				<Text key={index}>
+					<Text
+						style={item.reduplication ? styles.highlightReduplication : null}
+						onPress={
+							item.reduplication
+								? () => console.log(`Pressed: ${item.phrase}`)
+								: null
+						}
+					>
+						{item.phrase}
+					</Text>
 					{NO_WIDTH_SPACE}
 				</Text>
 			);
 
-			return textElement;
-		});
+					return textElement;
+				})}
+			</Text>
+		);
 	};
 
 	const renderContent = () => {
@@ -131,12 +149,9 @@ const ArticleScreen = ({ route }) => {
 						<Text style={styles.author}>Đăng bởi {author}</Text>
 					</LinearGradient>
 					<Text style={styles.contentText}>
-						{/* <Text style={styles.previousWord}>
-							{coloredTextRef?.current?.join(" ")}
-						</Text>
-						<Text style={styles.currentWord}>{currentWordRef?.current}</Text>
-						<Text> {nonColoredTextRef?.current?.join(" ")}</Text> */}
-						{renderHighlightedText()}
+						{isShowReduplication
+							? renderDuplicateHighlightedText()
+							: renderOriginalText()}
 					</Text>
 				</View>
 			</ScrollView>
@@ -146,8 +161,8 @@ const ArticleScreen = ({ route }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Header
-				onSpeech={() => Tts.speak(content)}
-				onHighlight={() => getReduplicationForContent(content)}
+				onSpeech={() => setIsSpeaking(!isSpeaking)}
+				onHighlight={() => setIsShowReduplication(!isShowReduplication)}
 			/>
 			{renderContent()}
 		</SafeAreaView>
@@ -202,7 +217,7 @@ const styles = StyleSheet.create({
 		textAlignVertical: "center",
 	},
 	highlightReduplication: {
-		backgroundColor: "yellow",
+		backgroundColor: "pink",
 	},
 	currentWord: {
 		backgroundColor: "lightblue",
