@@ -13,3 +13,7 @@ export const getNewsByCategoryAction = createAction(
 export const getReduplicationInNewsAction = createAction(
 	"newsData/getReduplicationInNewsAction"
 );
+
+export const getReduplicationDetailAction = createAction(
+	"newsData/getReduplicationDetailAction"
+);

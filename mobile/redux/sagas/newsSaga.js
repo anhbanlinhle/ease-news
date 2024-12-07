@@ -4,6 +4,7 @@ import {
 	getAllCategoriesAction,
 	getNewsByCategoryAction,
 	getReduplicationInNewsAction,
+	getReduplicationDetailAction,
 } from "../reducers/newsSlice";
 
 const API_URL = process.env.REACT_APP_API_URL || "127.0.0.1";
@@ -83,9 +84,31 @@ function* getReduplicationInNews(action) {
 	}
 }
 
+function* getReduplicationDetail(action) {
+	const body = action.payload?.phrase;
+	const onSuccess = action.payload?.onSuccess;
+	const onFail = action.payload?.onFail;
+
+	try {
+		const response = yield call(fetch, `http://${API_URL}:1111/dict/search_reduplication`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ word: body }),
+			}
+		);
+		const data = yield response.json();
+		onSuccess?.(data?.results);
+	} catch (error) {
+		onFail?.(error);
+	}
+}
+
 export function* watchGetNewsData() {
 	yield takeLatest(getNewsAction().type, getAllNews);
 	yield takeLatest(getAllCategoriesAction().type, getAllCategories);
 	yield takeLatest(getNewsByCategoryAction().type, getNewsByCategory);
 	yield takeLatest(getReduplicationInNewsAction().type, getReduplicationInNews);
+	yield takeLatest(getReduplicationDetailAction().type, getReduplicationDetail);
 }

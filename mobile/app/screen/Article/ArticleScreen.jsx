@@ -15,8 +15,9 @@ import { useNavigation } from "@react-navigation/native";
 import { formatTimestamp, ratioH, ratioW } from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Header from "./Header";
+import RedupModal from "./RedupModal";
 import Tts from "react-native-tts";
-import { getReduplicationInNewsAction } from "../../../redux/reducers/newsSlice";
+import { getReduplicationInNewsAction, getReduplicationDetailAction } from "../../../redux/reducers/newsSlice";
 import { useDispatch } from "react-redux";
 
 const ArticleScreen = ({ route }) => {
@@ -37,6 +38,8 @@ const ArticleScreen = ({ route }) => {
 
 	const [isShowReduplication, setIsShowReduplication] = useState(false);
 	const [isSpeaking, setIsSpeaking] = useState(false);
+
+	const redupModalRef = useRef(null);
 
 	const getReduplicationForContent = (content) => {
 		dispatch(
@@ -106,24 +109,37 @@ const ArticleScreen = ({ route }) => {
 		);
 	};
 
+	const handleOpenRedupModal = (text) => {
+		dispatch(getReduplicationDetailAction({
+			phrase: text,
+			onSuccess: (data) => {
+				redupModalRef.current.show(data?.[0]);
+			},
+			onFail: (error) => console.log("Get reduplication detail failed", error)
+		}))
+	}
+
 	const renderDuplicateHighlightedText = () => {
 		if (!highlightedText) {
 			return content;
 		}
+
 		return (
 			<Text style={styles.contentText}>
 				{highlightedText.map((item, index) => {
+					console.log(item);
+					
 					const textElement = (
 				<Text key={index}>
 					<Text
 						style={item.reduplication ? styles.highlightReduplication : null}
 						onPress={
 							item.reduplication
-								? () => console.log(`Pressed: ${item.phrase}`)
+								? () => handleOpenRedupModal(item.phrase)
 								: null
 						}
 					>
-						{item.phrase}
+						{item.word}
 					</Text>
 					{NO_WIDTH_SPACE}
 				</Text>
@@ -165,6 +181,7 @@ const ArticleScreen = ({ route }) => {
 				onHighlight={() => setIsShowReduplication(!isShowReduplication)}
 			/>
 			{renderContent()}
+			<RedupModal ref={redupModalRef} />
 		</SafeAreaView>
 	);
 };
