@@ -2,6 +2,7 @@ import React from 'react'
 import {View, StyleSheet, ImageBackground, Text, TouchableOpacity} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
+import Fonts from '../../../constants/Fonts';
 
 const BigNews = ({cover, title, author, summary, onPress}) => {
   return (
@@ -70,17 +71,19 @@ const styles = StyleSheet.create({
   },
   author: {
     fontSize: ratioH(10),
-    fontWeight: 'bold',
+    ...Fonts.black,
     color: 'white',
   },
   title: {
     fontSize: ratioH(16),
-    fontWeight: 'bold',
+    ...Fonts.extraBold,
     color: 'white',
   },
   summary: {
     fontSize: ratioH(10),
+    ...Fonts.boldItalic,
     color: 'white',
+    textAlign: 'justify',
   }
 })
 

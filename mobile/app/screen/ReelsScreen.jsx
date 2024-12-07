@@ -5,7 +5,7 @@ import Header from "../components/Header";
 const ReelsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={'Video'}/>
+      <Header title={'Hình ảnh'}/>
     </SafeAreaView>
   )
 }

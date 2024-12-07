@@ -2,6 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import Icons from "../../../constants/Icons";
 import {ratioH, ratioW} from "../../../utils/converter";
+import Fonts from '../../../constants/Fonts';
 
 const ButtonLogout = () => {
   return (
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#666C8E',
     fontSize: ratioH(18),
-    fontWeight: 'bold',
+    ...Fonts.black,
     textAlign: 'center',
   },
   icon: {

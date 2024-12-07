@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
 		width: ratioH(30),
 		height: ratioH(30),
 		alignItems: "center",
+		marginLeft: ratioH(16),
 	},
 	buttonContainer: {
 		position: "absolute",
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
 		borderRadius: ratioW(16),
 		justifyContent: "center",
 		alignItems: "center",
-		marginHorizontal: ratioW(2),
+		marginHorizontal: ratioW(6),
 	},
 });
 

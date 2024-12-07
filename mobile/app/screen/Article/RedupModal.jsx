@@ -4,6 +4,7 @@ import { ratioH, ratioW } from '../../../utils/converter';
 import LinearGradient from 'react-native-linear-gradient';
 import Icons from '../../../constants/Icons';
 import Tts from "react-native-tts"
+import Fonts from '../../../constants/Fonts';
 
 const RedupModal = forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false);
@@ -86,19 +87,19 @@ const styles = StyleSheet.create({
   },
   word: {
     fontSize: ratioH(24),
-    fontWeight: 'bold',
+    ...Fonts.black,
     color: '#000'
   },
   type: {
     fontSize: ratioH(18),
     color: 'gray',
-    fontStyle: 'italic',
+    ...Fonts.mediumItalic,
     marginBottom: ratioH(20)
   },
   semantic: {
     fontSize: ratioH(20),
     color: '#000',
-    fontWeight: '700',
+    ...Fonts.extraBold,
     marginBottom: ratioH(20),
     textAlign: 'justify'
   },
@@ -106,8 +107,7 @@ const styles = StyleSheet.create({
     fontSize: ratioH(16),
     color: '#000',
     marginVertical: ratioH(4),
-    fontWeight: '500',
-    fontStyle: 'italic'
+    ...Fonts.mediumItalic,
   },
   header: {
     flexDirection: 'row',

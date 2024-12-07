@@ -19,6 +19,7 @@ import RedupModal from "./RedupModal";
 import Tts from "react-native-tts";
 import { getReduplicationInNewsAction, getReduplicationDetailAction } from "../../../redux/reducers/newsSlice";
 import { useDispatch } from "react-redux";
+import Fonts from "../../../constants/Fonts";
 
 const ArticleScreen = ({ route }) => {
 	const navigation = useNavigation();
@@ -157,7 +158,7 @@ const ArticleScreen = ({ route }) => {
 				<Image source={{ uri: cover }} style={styles.cover} />
 				<View style={styles.mainContent}>
 					<LinearGradient
-						colors={["rgba(160, 160, 160, 1)", "rgba(245, 245, 245, 1)"]}
+						colors={["rgba(245, 245, 245, 1)","rgba(160, 160, 160, 1)"]}
 						style={styles.heading}
 					>
 						<Text style={styles.timestamp}>{formatTimestamp(timestamp)}</Text>
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
 	},
 	cover: {
 		width: ratioW(375),
-		height: ratioH(285),
+		height: ratioH(245),
 	},
 	content: {},
 	heading: {
@@ -204,17 +205,17 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: ratioH(18),
-		fontWeight: "400",
+		...Fonts.bold,
 		marginTop: ratioH(12),
 	},
 	timestamp: {
 		fontSize: ratioH(16),
 		marginTop: ratioH(20),
-		fontWeight: "400",
+		...Fonts.boldItalic,
 	},
 	author: {
 		marginTop: ratioH(8),
-		fontWeight: "800",
+		...Fonts.black,
 		marginBottom: ratioH(16),
 	},
 	mainContent: {
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
 	},
 	contentText: {
 		fontSize: ratioH(14),
-		fontWeight: "400",
+		...Fonts.medium,
 		margin: ratioW(16),
 		textAlign: "justify",
 		textAlignVertical: "center",

@@ -1,7 +1,8 @@
 import React from 'react'
 import {View, StyleSheet, ImageBackground, Text, TouchableOpacity} from 'react-native'
-import {ratioH, ratioW} from "../../../utils/converter";
+import {formatTimestamp, ratioH, ratioW} from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
+import Fonts from '../../../constants/Fonts';
 
 const SmallNews = ({cover, title, author, timestamp, onPress}) => {
   return (
@@ -26,7 +27,7 @@ const SmallNews = ({cover, title, author, timestamp, onPress}) => {
           {author}
         </Text>
         <Text style={styles.timestamp}>
-          {timestamp}
+          {formatTimestamp(timestamp)}
         </Text>
       </View>
     </TouchableOpacity>
@@ -64,19 +65,19 @@ const styles = StyleSheet.create({
     padding: ratioH(16),
   },
   title: {
-    fontSize: ratioH(14),
-    fontWeight: 'bold',
+    fontSize: ratioH(16),
+    ...Fonts.extraBold,
     color: 'white',
   },
   timestamp: {
     fontSize: ratioH(12),
-    fontWeight: 'bold',
+    ...Fonts.boldItalic,
     color: 'white',
     alignSelf: 'flex-end',
   },
   author: {
     fontSize: ratioH(12),
-    fontWeight: 'bold',
+    ...Fonts.black,
     color: 'white',
   },
 

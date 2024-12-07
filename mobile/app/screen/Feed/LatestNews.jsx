@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {View, StyleSheet, Text, FlatList} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import BigNews from "../../components/thumbnails/BigNews";
-import {useSelector} from "react-redux";
+import Fonts from '../../../constants/Fonts';
 import {useNavigation} from "@react-navigation/native";
 
 const LatestNews = ({data}) => {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: ratioH(24),
-    fontWeight: '400',
+    ...Fonts.semiBold,
     color: 'black'
   },
   news: {

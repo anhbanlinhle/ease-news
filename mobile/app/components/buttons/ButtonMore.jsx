@@ -2,6 +2,7 @@ import React from 'react'
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
+import Fonts from '../../../constants/Fonts';
 
 const ButtonMore = ({title, onPress}) => {
   return (
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#666C8E',
     fontSize: ratioH(18),
-    fontWeight: 'bold',
+    ...Fonts.black,
     textAlign: 'center',
   },
   icon: {

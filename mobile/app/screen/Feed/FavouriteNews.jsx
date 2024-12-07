@@ -6,6 +6,7 @@ import Icons from "../../../constants/Icons";
 import {useDispatch} from "react-redux";
 import {getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
 import {useNavigation} from "@react-navigation/native";
+import Fonts from '../../../constants/Fonts';
 
 const FavouriteNews = () => {
   const [newsData, setNewsData] = useState([]);
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: ratioH(24),
-    fontWeight: '400',
+    ...Fonts.semiBold,
     color: 'black'
   },
   news: {
