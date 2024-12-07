@@ -93,29 +93,27 @@ const styles = StyleSheet.create({
     fontSize: ratioH(18),
     color: 'gray',
     fontStyle: 'italic',
-    marginBottom: ratioH(8)
+    marginBottom: ratioH(20)
   },
   semantic: {
     fontSize: ratioH(20),
     color: '#000',
     fontWeight: '700',
-    marginBottom: ratioH(8),
+    marginBottom: ratioH(20),
     textAlign: 'justify'
   },
   example: {
     fontSize: ratioH(16),
-    color: '#fff',
+    color: '#000',
     marginVertical: ratioH(4),
-    fontWeight: '500'
+    fontWeight: '500',
+    fontStyle: 'italic'
   },
   header: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     alignItems: 'center'
   },
   iconContainer: {
-    // position: 'absolute',
-    // right: ratioH(16),
     marginLeft: ratioH(12),
     alignItems: 'center',
   },

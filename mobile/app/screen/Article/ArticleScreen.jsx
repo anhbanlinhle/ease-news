@@ -139,7 +139,7 @@ const ArticleScreen = ({ route }) => {
 								: null
 						}
 					>
-						{item.word}
+						{item.phrase}
 					</Text>
 					{NO_WIDTH_SPACE}
 				</Text>
