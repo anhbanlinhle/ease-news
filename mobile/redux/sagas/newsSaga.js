@@ -6,7 +6,7 @@ import {
 	getReduplicationInNewsAction,
 } from "../reducers/newsSlice";
 
-const API_URL = "192.168.1.20";
+const API_URL = process.env.REACT_APP_API_URL || "127.0.0.1";
 
 function* getAllNews(action) {
 	const data = action.payload?.data;
