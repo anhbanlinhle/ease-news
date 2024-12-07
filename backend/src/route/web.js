@@ -17,6 +17,7 @@ const initWebRoute = (app) => {
 
     // section - dictionary
     router.post('/dict/check_reduplication/', homeController.checkReduplication)
+    router.post('/dict/search_reduplication/', homeController.searchReduplication)
 
     return app.use('/', router)
 }
