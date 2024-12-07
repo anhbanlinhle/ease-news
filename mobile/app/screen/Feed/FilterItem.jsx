@@ -3,6 +3,7 @@ import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import LinearGradient from "react-native-linear-gradient";
 import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
+import Fonts from '../../../constants/Fonts';
 
 const FilterItem = ({item, focus, onPress}) => {
   const renderContent = () => {
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   },
   text: (focus) => ({
     fontSize: ratioH(12),
-    fontFamily: "Arial",
+    ...Fonts.regular,
     color: focus ? 'white' : 'black',
   })
 })

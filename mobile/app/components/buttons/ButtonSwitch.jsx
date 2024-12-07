@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Switch} from 'react-native'
-import Icons from "../../../constants/Icons";
 import {ratioH, ratioW} from "../../../utils/converter";
-
+import Fonts from '../../../constants/Fonts';
 const ButtonSwitch = ({title}) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#666C8E',
     fontSize: ratioH(18),
-    fontWeight: 'bold',
+    ...Fonts.black,
     textAlign: 'center',
   },
 })

@@ -8,6 +8,7 @@ import {ScrollView} from "react-native-gesture-handler";
 import {ratioH} from "../../../utils/converter";
 import {useDispatch} from "react-redux";
 import {getNewsAction, getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
+import Header from '../../components/Header';
 
 const FeedScreen = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const FeedScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
+          <Header title={'Tin tức'}/>
           <Filter onChange={setCurrentFilter}/>
           <SearchBar/>
           <LatestNews data={newsData}/>

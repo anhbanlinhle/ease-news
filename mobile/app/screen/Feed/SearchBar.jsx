@@ -3,6 +3,7 @@ import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
 import LinearGradient from "react-native-linear-gradient";
+import Fonts from '../../../constants/Fonts';
 
 const SearchBar = () => {
   return (
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     width: ratioW(273),
     height: ratioH(40),
     marginLeft: ratioW(16),
+    ...Fonts.regular,
   },
   icon: {
     width: ratioH(30),

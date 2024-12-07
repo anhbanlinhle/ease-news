@@ -4,6 +4,7 @@ import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
 import SmallNews from "../../components/thumbnails/SmallNews";
 import {useNavigation} from "@react-navigation/native";
+import Fonts from '../../../constants/Fonts';
 
 const Section = ({title, data}) => {
   const navigation = useNavigation()
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: ratioW(18),
-    fontWeight: '400',
+    ...Fonts.semiBold,
     color: 'black',
     marginLeft: ratioW(8),
   },
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   moreTitle: {
     color: '#FF3A44',
     fontSize: ratioW(12),
-    fontWeight: '400',
+    ...Fonts.lightItalic
   }
 })
 

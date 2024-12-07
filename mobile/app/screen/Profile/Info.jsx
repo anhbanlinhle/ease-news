@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, Image, Text} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
+import Fonts from '../../../constants/Fonts';
 
 const Info = () => {
   return (
@@ -37,12 +38,12 @@ const styles = StyleSheet.create({
   name: {
     color: '#333647',
     fontSize: ratioH(16),
-    fontWeight: '600',
+    ...Fonts.extraBold,
   },
   email: {
     color: '#7c82a1',
     fontSize: ratioH(14),
-    fontWeight: '400',
+    ...Fonts.regular,
     marginTop: ratioH(4),
   }
 })

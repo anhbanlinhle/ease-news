@@ -45,7 +45,7 @@ const Filter = ({onChange}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    marginTop: ratioH(4),
+    marginTop: ratioH(12),
     marginLeft: ratioW(16),
   },
   item: {

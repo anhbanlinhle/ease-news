@@ -15,9 +15,11 @@ import { useNavigation } from "@react-navigation/native";
 import { formatTimestamp, ratioH, ratioW } from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Header from "./Header";
+import RedupModal from "./RedupModal";
 import Tts from "react-native-tts";
-import { getReduplicationInNewsAction } from "../../../redux/reducers/newsSlice";
+import { getReduplicationInNewsAction, getReduplicationDetailAction } from "../../../redux/reducers/newsSlice";
 import { useDispatch } from "react-redux";
+import Fonts from "../../../constants/Fonts";
 
 const ArticleScreen = ({ route }) => {
 	const navigation = useNavigation();
@@ -37,6 +39,8 @@ const ArticleScreen = ({ route }) => {
 
 	const [isShowReduplication, setIsShowReduplication] = useState(false);
 	const [isSpeaking, setIsSpeaking] = useState(false);
+
+	const redupModalRef = useRef(null);
 
 	const getReduplicationForContent = (content) => {
 		dispatch(
@@ -106,20 +110,33 @@ const ArticleScreen = ({ route }) => {
 		);
 	};
 
+	const handleOpenRedupModal = (text) => {
+		dispatch(getReduplicationDetailAction({
+			phrase: text,
+			onSuccess: (data) => {
+				redupModalRef.current.show(data?.[0]);
+			},
+			onFail: (error) => console.log("Get reduplication detail failed", error)
+		}))
+	}
+
 	const renderDuplicateHighlightedText = () => {
 		if (!highlightedText) {
 			return content;
 		}
+
 		return (
 			<Text style={styles.contentText}>
 				{highlightedText.map((item, index) => {
+					console.log(item);
+					
 					const textElement = (
 				<Text key={index}>
 					<Text
 						style={item.reduplication ? styles.highlightReduplication : null}
 						onPress={
 							item.reduplication
-								? () => console.log(`Pressed: ${item.phrase}`)
+								? () => handleOpenRedupModal(item.phrase)
 								: null
 						}
 					>
@@ -141,7 +158,7 @@ const ArticleScreen = ({ route }) => {
 				<Image source={{ uri: cover }} style={styles.cover} />
 				<View style={styles.mainContent}>
 					<LinearGradient
-						colors={["rgba(160, 160, 160, 1)", "rgba(245, 245, 245, 1)"]}
+						colors={["rgba(245, 245, 245, 1)","rgba(160, 160, 160, 1)"]}
 						style={styles.heading}
 					>
 						<Text style={styles.timestamp}>{formatTimestamp(timestamp)}</Text>
@@ -165,6 +182,7 @@ const ArticleScreen = ({ route }) => {
 				onHighlight={() => setIsShowReduplication(!isShowReduplication)}
 			/>
 			{renderContent()}
+			<RedupModal ref={redupModalRef} />
 		</SafeAreaView>
 	);
 };
@@ -176,7 +194,7 @@ const styles = StyleSheet.create({
 	},
 	cover: {
 		width: ratioW(375),
-		height: ratioH(285),
+		height: ratioH(245),
 	},
 	content: {},
 	heading: {
@@ -187,17 +205,17 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: ratioH(18),
-		fontWeight: "400",
+		...Fonts.bold,
 		marginTop: ratioH(12),
 	},
 	timestamp: {
 		fontSize: ratioH(16),
 		marginTop: ratioH(20),
-		fontWeight: "400",
+		...Fonts.boldItalic,
 	},
 	author: {
 		marginTop: ratioH(8),
-		fontWeight: "800",
+		...Fonts.black,
 		marginBottom: ratioH(16),
 	},
 	mainContent: {
@@ -211,7 +229,7 @@ const styles = StyleSheet.create({
 	},
 	contentText: {
 		fontSize: ratioH(14),
-		fontWeight: "400",
+		...Fonts.medium,
 		margin: ratioW(16),
 		textAlign: "justify",
 		textAlignVertical: "center",

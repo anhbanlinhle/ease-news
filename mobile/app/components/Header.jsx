@@ -4,6 +4,7 @@ import {ratioH, ratioW} from "../../utils/converter";
 import Icons from "../../constants/Icons";
 import LinearGradient from "react-native-linear-gradient";
 import Tts from "react-native-tts"
+import Fonts from '../../constants/Fonts';
 
 const Header = ({title}) => {
   return (
@@ -33,17 +34,17 @@ const styles = StyleSheet.create({
   title: {
     color: '#FF3A44',
     fontSize: ratioH(24),
-    fontWeight: 'bold',
+    ...Fonts.black,
   },
   iconContainer: {
     position: 'absolute',
-    right: ratioH(16),
+    left: ratioH(16),
     alignItems: 'center',
   },
   icon: {
-    width: ratioH(30),
-    height: ratioH(30),
-    borderRadius: ratioW(16),
+    width: ratioH(32),
+    height: ratioH(32),
+    borderRadius: ratioW(10),
     justifyContent: 'center',
     alignItems: 'center',
   }
