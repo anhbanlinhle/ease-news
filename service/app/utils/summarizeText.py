@@ -1,36 +1,40 @@
 import os
-
 import torch
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-print(torch.cuda.is_available())
-print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No GPU")
+model = None
+tokenizer = None
+device = None
 
-if torch.cuda.is_available():
-    device = torch.device("cuda")
 
-    print('There are %d GPU(s) available.' % torch.cuda.device_count())
+def initialize_device(device_name):
+    global device
+    device = device_name
 
-    print('We will use the GPU:', torch.cuda.get_device_name(0))
-else:
-    print('No GPU available, using the CPU instead.')
-    device = torch.device("cpu")
 
-model = T5ForConditionalGeneration.from_pretrained("NlpHUST/t5-small-vi-summarization")
-tokenizer = T5Tokenizer.from_pretrained("NlpHUST/t5-small-vi-summarization")
-model.to(device)
+def initialize_model():
+    global model, tokenizer
+    if model is None or tokenizer is None:
+        print("Loading model...")
+        tokenizer = AutoTokenizer.from_pretrained("ntkhoi/mt5-vi-news-summarization")
+        model = AutoModelForSeq2SeqLM.from_pretrained("ntkhoi/mt5-vi-news-summarization")
+        model.to(device)
 
 
 async def summarize_text(src):
+    if model is None or tokenizer is None:
+        initialize_model()
+
     tokenized_text = tokenizer.encode(src, return_tensors="pt").to(device)
     model.eval()
     with torch.no_grad():
         summary_ids = model.generate(
             tokenized_text,
             max_length=256,
-            num_beams=5,
+            num_beams=3,
             repetition_penalty=2.5,
             length_penalty=1.0,
             early_stopping=True
