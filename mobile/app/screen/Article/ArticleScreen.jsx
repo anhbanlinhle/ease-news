@@ -17,10 +17,10 @@ import LinearGradient from "react-native-linear-gradient";
 import Header from "./Header";
 import RedupModal from "./RedupModal";
 import Tts from "react-native-tts";
-import { getReduplicationInNewsAction, getReduplicationDetailAction } from "../../../redux/reducers/newsSlice";
+import { getReduplicationInNewsAction, getReduplicationDetailAction, getSummaryTextAction } from "../../../redux/reducers/newsSlice";
 import { useDispatch } from "react-redux";
 import Fonts from "../../../constants/Fonts";
-
+import ContentSkeleton from "./ContentSkeleton";
 const ArticleScreen = ({ route }) => {
 	const navigation = useNavigation();
 	const dispatch = useDispatch();
@@ -28,6 +28,9 @@ const ArticleScreen = ({ route }) => {
 		route.params;
 
 	const NO_WIDTH_SPACE = " ";
+	const [isLoading, setIsLoading] = useState(false);
+	const [isShowSummary, setIsShowSummary] = useState(false);
+	const [summaryText, setSummaryText] = useState(null);
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [highlightedText, setHighlightedText] = useState(null);
@@ -98,6 +101,13 @@ const ArticleScreen = ({ route }) => {
 		}
 	}, [isShowReduplication]);
 
+	useEffect(() => {
+		setIsLoading(true);
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	}, [])
+
 	const renderOriginalText = () => {
 		return (
 			<>
@@ -124,52 +134,95 @@ const ArticleScreen = ({ route }) => {
 		if (!highlightedText) {
 			return content;
 		}
-
 		return (
 			<Text style={styles.contentText}>
 				{highlightedText.map((item, index) => {
-					console.log(item);
-					
 					const textElement = (
-				<Text key={index}>
-					<Text
-						style={item.reduplication ? styles.highlightReduplication : null}
-						onPress={
-							item.reduplication
-								? () => handleOpenRedupModal(item.phrase)
-								: null
-						}
-					>
-						{item.phrase}
-					</Text>
-					{NO_WIDTH_SPACE}
-				</Text>
-			);
-
+						<Text key={index}>
+							<Text
+								style={item.reduplication ? styles.highlightReduplication : null}
+								onPress={
+									item.reduplication
+									? () => handleOpenRedupModal(item.phrase)
+									: null
+								}
+							>
+								{item.phrase}
+							</Text>
+							{NO_WIDTH_SPACE}
+						</Text>
+					);
 					return textElement;
 				})}
 			</Text>
 		);
 	};
 
+	const handleGetSummary = () => {
+		if (!summaryText) {
+			setIsLoading(true);
+			dispatch(getSummaryTextAction({
+				text: content,
+				onSuccess: (data) => {
+					setSummaryText(data?.reply);
+					setIsLoading(false);
+					setIsShowSummary(true);
+				},
+				onFail: (error) => {
+					console.log("Get summary failed", error);
+					setIsLoading(false);
+				}
+			}))
+		}
+		else {
+			setIsShowSummary(!isShowSummary);
+		}
+	}
+
+	const renderHeading = () => {
+		return (
+			<TouchableOpacity
+				activeOpacity={0.9}
+				onLongPress={() => {
+					handleGetSummary();
+				}}
+			>
+				<LinearGradient
+					colors={["rgba(245, 245, 245, 1)","rgba(160, 160, 160, 1)"]}
+					style={styles.heading}
+				>
+					{isLoading ? <Text style={styles.loadingText}>Đang tải nội dung...</Text> :
+						<>
+							<Text style={styles.timestamp}>{formatTimestamp(timestamp)}</Text>
+							<Text style={styles.title}>{title}</Text>
+							<Text style={styles.author}>Đăng bởi {author}</Text>
+						</>
+					}
+				</LinearGradient>
+			</TouchableOpacity>
+		)
+	}
+
+	const renderSummary = () => {
+		return (
+			<Text style={styles.summaryText}>Tóm tắt: {summaryText}</Text>
+		)
+	}
+
 	const renderContent = () => {
 		return (
 			<ScrollView bounces={false} contentContainerStyle={styles.content}>
 				<Image source={{ uri: cover }} style={styles.cover} />
 				<View style={styles.mainContent}>
-					<LinearGradient
-						colors={["rgba(245, 245, 245, 1)","rgba(160, 160, 160, 1)"]}
-						style={styles.heading}
-					>
-						<Text style={styles.timestamp}>{formatTimestamp(timestamp)}</Text>
-						<Text style={styles.title}>{title}</Text>
-						<Text style={styles.author}>Đăng bởi {author}</Text>
-					</LinearGradient>
-					<Text style={styles.contentText}>
-						{isShowReduplication
-							? renderDuplicateHighlightedText()
-							: renderOriginalText()}
-					</Text>
+					{renderHeading()}
+					{isLoading ? <ContentSkeleton /> :
+						isShowSummary ? renderSummary() :
+						<Text style={styles.contentText}>
+							{isShowReduplication
+								? renderDuplicateHighlightedText()
+								: renderOriginalText()}
+						</Text>
+					}
 				</View>
 			</ScrollView>
 		);
@@ -178,8 +231,14 @@ const ArticleScreen = ({ route }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Header
-				onSpeech={() => setIsSpeaking(!isSpeaking)}
-				onHighlight={() => setIsShowReduplication(!isShowReduplication)}
+				onSpeech={() => {
+					setIsSpeaking(!isSpeaking);
+					setIsShowSummary(false);
+				}}
+				onHighlight={() => {
+					setIsShowReduplication(!isShowReduplication)
+					setIsShowSummary(false);
+				}}
 			/>
 			{renderContent()}
 			<RedupModal ref={redupModalRef} />
@@ -234,6 +293,13 @@ const styles = StyleSheet.create({
 		textAlign: "justify",
 		textAlignVertical: "center",
 	},
+	summaryText: {
+		fontSize: ratioH(16),
+		...Fonts.mediumItalic,
+		margin: ratioW(16),
+		textAlign: "justify",
+		textAlignVertical: "center",
+	},
 	highlightReduplication: {
 		backgroundColor: "pink",
 	},
@@ -242,6 +308,11 @@ const styles = StyleSheet.create({
 	},
 	previousWord: {
 		backgroundColor: "lightgray",
+	},
+	loadingText: {
+		fontSize: ratioH(16),
+		...Fonts.mediumItalic,
+		margin: ratioW(16),
 	},
 });
 

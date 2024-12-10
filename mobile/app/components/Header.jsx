@@ -12,11 +12,11 @@ const Header = ({title}) => {
       <Text style={styles.title}>{title}</Text>
       <TouchableOpacity
         onPress={() => {
-          Tts.speak('Xin chào buổi sáng')
+          
         }}
         style={styles.iconContainer}>
         <LinearGradient colors={['#ff3a44', '#ff8086']} style={styles.icon}>
-          <Icons.Speech/>
+          <Text style={styles.iconText}>?</Text>
         </LinearGradient>
       </TouchableOpacity>
     </View>
@@ -47,6 +47,11 @@ const styles = StyleSheet.create({
     borderRadius: ratioW(10),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  iconText: {
+    color: 'white',
+    fontSize: ratioH(16),
+    ...Fonts.bold,
   }
 })
 
