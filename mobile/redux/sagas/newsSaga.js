@@ -5,6 +5,8 @@ import {
 	getNewsByCategoryAction,
 	getReduplicationInNewsAction,
 	getReduplicationDetailAction,
+	getSummaryTextAction,
+	getTextToImageAction,
 } from "../reducers/newsSlice";
 
 const API_URL = process.env.REACT_APP_API_URL || "127.0.0.1";
@@ -105,10 +107,51 @@ function* getReduplicationDetail(action) {
 	}
 }
 
+function* getSummaryText(action) {
+	const body = action.payload?.text;
+	const onSuccess = action.payload?.onSuccess;
+	const onFail = action.payload?.onFail;
+	try {
+		const response = yield call(fetch, `http://${API_URL}:7979/summary`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ text: body }),
+		});
+		const data = yield response.json();
+		onSuccess?.(data);
+	} catch (error) {
+		onFail?.(error);
+	}
+}
+
+function* getTextToImage(action) {
+	const body = action.payload?.text;
+	const onSuccess = action.payload?.onSuccess;
+	const onFail = action.payload?.onFail;
+	try {
+		const response = yield call(fetch, `http://${API_URL}:7979/generate-image`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ text: body }),
+		});
+		const data = yield response.json();
+		onSuccess?.(data);
+	} catch (error) {
+		onFail?.(error);
+	}
+}
+
+
 export function* watchGetNewsData() {
 	yield takeLatest(getNewsAction().type, getAllNews);
 	yield takeLatest(getAllCategoriesAction().type, getAllCategories);
 	yield takeLatest(getNewsByCategoryAction().type, getNewsByCategory);
 	yield takeLatest(getReduplicationInNewsAction().type, getReduplicationInNews);
 	yield takeLatest(getReduplicationDetailAction().type, getReduplicationDetail);
+	yield takeLatest(getSummaryTextAction().type, getSummaryText);
+	yield takeLatest(getTextToImageAction().type, getTextToImage);
 }
