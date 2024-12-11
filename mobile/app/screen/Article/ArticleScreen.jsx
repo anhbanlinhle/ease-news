@@ -215,7 +215,13 @@ const ArticleScreen = ({ route }) => {
 	const renderContent = () => {
 		return (
 			<ScrollView bounces={false} contentContainerStyle={styles.content}>
-				<Image source={{ uri: cover }} style={styles.cover} />
+				<TouchableOpacity onPress={() => {
+					navigation.navigate("Reels", {
+						content: content
+					});
+				}}>
+					<Image source={{ uri: cover }} style={styles.cover} />
+				</TouchableOpacity>
 				<View style={[styles.mainContent,
 					{backgroundColor: isDarkMode ? '#28231d' : '#ffffff'}
 				]}>

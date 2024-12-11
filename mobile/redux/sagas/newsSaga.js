@@ -1,4 +1,4 @@
-import { call, takeLatest } from "redux-saga/effects";
+import { call, takeEvery, takeLatest } from "redux-saga/effects";
 import {
 	getNewsAction,
 	getAllCategoriesAction,
