@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {View, StyleSheet, SafeAreaView} from 'react-native'
 import Header from "../../components/Header";
 import Info from "./Info";
@@ -6,8 +6,10 @@ import ButtonMore from "../../components/buttons/ButtonMore";
 import ButtonLogout from "../../components/buttons/ButtonLogout";
 import ButtonSwitch from "../../components/buttons/ButtonSwitch";
 import {ratioH} from "../../../utils/converter";
+import { SampleContext } from "../../../context/SampleContext";
 
 const ProfileScreen = () => {
+  const { isDarkMode } = useContext(SampleContext);
   const renderSeparator = () => {
     return (
       <View
@@ -18,7 +20,8 @@ const ProfileScreen = () => {
     )
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,
+    {backgroundColor: isDarkMode ? '#28231d' : 'white'}]}>
       <Header title={'Cá nhân'}/>
       <Info/>
       <ButtonSwitch title={'Thông báo'}/>
@@ -48,7 +51,7 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
   },
 })
 

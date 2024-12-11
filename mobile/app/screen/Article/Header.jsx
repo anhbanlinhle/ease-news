@@ -18,7 +18,7 @@ const Header = ({ onSpeech, onHighlight }) => {
 					navigation.goBack();
 				}}
 			>
-				<Icons.Back />
+				<Icons.Back  />
 			</TouchableOpacity>
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={onSpeech}>

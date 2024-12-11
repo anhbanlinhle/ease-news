@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {View, StyleSheet, TouchableOpacity } from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import TabItem from "./TabItem";
+import { SampleContext } from "../../../context/SampleContext";
 
 const TabBar = ({state, descriptors, navigation}) => {
+  const { isDarkMode } = useContext(SampleContext);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,
+    {backgroundColor: isDarkMode ? '#28231d' : 'white'}]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -66,7 +69,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     borderRadius: ratioH(12),
     justifyContent: 'space-around',
-    backgroundColor: 'white',
     borderWidth: 1,
     borderColor: "#a6a6a6"
   },

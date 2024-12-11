@@ -1,16 +1,21 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {View, StyleSheet, Text, FlatList} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import BigNews from "../../components/thumbnails/BigNews";
 import Fonts from '../../../constants/Fonts';
 import {useNavigation} from "@react-navigation/native";
-
+import { SampleContext } from '../../../context/SampleContext';
 const LatestNews = ({data}) => {
   const navigation = useNavigation();
+  const { isDarkMode } = useContext(SampleContext);
+
   const renderHeader = () => {
     return (
       <View style={styles.header}>
-        <Text style={styles.title}>Tin tức mới nhất</Text>
+        <Text style={[styles.title,
+          {color: isDarkMode ? 'white' : 'black'}]}>
+          Tin tức mới nhất
+        </Text>
       </View>
     )
   }
@@ -62,7 +67,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: ratioH(24),
     ...Fonts.semiBold,
-    color: 'black'
   },
   news: {
     marginTop: ratioH(8),

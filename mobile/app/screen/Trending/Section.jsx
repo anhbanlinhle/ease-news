@@ -1,19 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
 import SmallNews from "../../components/thumbnails/SmallNews";
 import {useNavigation} from "@react-navigation/native";
 import Fonts from '../../../constants/Fonts';
-
+import { SampleContext } from '../../../context/SampleContext';
 const Section = ({title, data}) => {
   const navigation = useNavigation()
+  const { isDarkMode } = useContext(SampleContext);
 
   const renderHeader = () => {
     return (
       <View style={styles.header}>
-        <Icons.Live width={ratioW(20)} height={ratioH(20)}/>
-        <Text style={styles.title}>
+        <Icons.Live width={ratioW(20)} height={ratioH(20)}
+        fill={isDarkMode ? '#ffffff' : '#000000'}/>
+        <Text style={[styles.title,
+          {color: isDarkMode ? 'white' : 'black'}]}>
           {title}
         </Text>
       </View>
@@ -41,8 +44,12 @@ const Section = ({title, data}) => {
             )
           }}
         />
-        <TouchableOpacity style={styles.more}>
-          <Text style={styles.moreTitle}>
+        <TouchableOpacity
+        style={[styles.more,
+          {backgroundColor: isDarkMode ? '#121212' : '#dadada'}
+        ]}>
+          <Text style={[styles.moreTitle,
+          ]}>
             Xem thêm
           </Text>
         </TouchableOpacity>
@@ -51,7 +58,9 @@ const Section = ({title, data}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,
+      {backgroundColor: isDarkMode ? '#28231d' : '#ffffff'}
+    ]}>
       {renderHeader()}
       {renderNews()}
     </View>
@@ -61,7 +70,6 @@ const Section = ({title, data}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
   },
   header: {
     flexDirection: 'row',

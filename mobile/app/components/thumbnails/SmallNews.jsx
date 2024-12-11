@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {View, StyleSheet, ImageBackground, Text, TouchableOpacity} from 'react-native'
 import {formatTimestamp, ratioH, ratioW} from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Fonts from '../../../constants/Fonts';
-
+import { SampleContext } from '../../../context/SampleContext';
 const SmallNews = ({cover, title, author, timestamp, onPress}) => {
+  const { isDarkMode } = useContext(SampleContext);
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -16,17 +17,23 @@ const SmallNews = ({cover, title, author, timestamp, onPress}) => {
         height={ratioH(100)}
         borderRadius={ratioW(16)}
       />
-      <LinearGradient colors={['rgba(98, 98, 98, 0.35)', 'rgba(0, 0, 0, 1)']} style={styles.fade}/>
+      <LinearGradient
+      colors={[!isDarkMode ? 'rgba(98, 98, 98, 0.35)' : 'rgba(157, 157, 157, 0.35)',
+      !isDarkMode ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)']}
+      style={styles.fade}/>
       <View style={styles.header}>
-        <Text style={styles.title}>
+        <Text style={[styles.title,
+          {color: !isDarkMode ? 'white' : 'black'}]}>
           {title}
         </Text>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.author}>
+        <Text style={[styles.author,
+          {color: !isDarkMode ? 'white' : 'black'}]}>
           {author}
         </Text>
-        <Text style={styles.timestamp}>
+        <Text style={[styles.timestamp,
+          {color: !isDarkMode ? 'white' : 'black'}]}>
           {formatTimestamp(timestamp)}
         </Text>
       </View>

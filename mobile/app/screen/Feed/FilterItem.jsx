@@ -1,22 +1,23 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useContext} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import LinearGradient from "react-native-linear-gradient";
 import {ratioH, ratioW} from "../../../utils/converter";
 import Icons from "../../../constants/Icons";
 import Fonts from '../../../constants/Fonts';
-
+import { SampleContext } from '../../../context/SampleContext';
 const FilterItem = ({item, focus, onPress}) => {
+  const { isDarkMode } = useContext(SampleContext);
   const renderContent = () => {
     if (item === 'Lọc') {
       return (
         <View style={styles.root}>
-          <Icons.Filter fill={focus ? 'white' : 'black'} style={styles.icon}/>
-          <Text style={styles.text(focus)}>{item}</Text>
+          <Icons.Filter fill={focus ? 'white' : isDarkMode ? 'white' : 'black'} style={styles.icon}/>
+          <Text style={styles.text(focus, isDarkMode)}>{item}</Text>
         </View>
       )
     }
     return (
-      <Text style={styles.text(focus)}>{item}</Text>
+      <Text style={styles.text(focus, isDarkMode)}>{item}</Text>
     )
   }
   if (focus) {
@@ -55,10 +56,10 @@ const styles = StyleSheet.create({
     height: ratioH(12),
     marginRight: ratioW(4),
   },
-  text: (focus) => ({
+  text: (focus, isDarkMode) => ({
     fontSize: ratioH(12),
     ...Fonts.regular,
-    color: focus ? 'white' : 'black',
+    color: focus ? 'white' : isDarkMode ? 'white' : 'black',
   })
 })
 

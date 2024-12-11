@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
 	View,
 	StyleSheet,
@@ -21,7 +21,10 @@ import { getReduplicationInNewsAction, getReduplicationDetailAction, getSummaryT
 import { useDispatch } from "react-redux";
 import Fonts from "../../../constants/Fonts";
 import ContentSkeleton from "./ContentSkeleton";
+import { SampleContext } from '../../../context/SampleContext';
+
 const ArticleScreen = ({ route }) => {
+	const { isDarkMode } = useContext(SampleContext);
 	const navigation = useNavigation();
 	const dispatch = useDispatch();
 	const { author, categories, content, summary, cover, timestamp, title } =
@@ -188,7 +191,7 @@ const ArticleScreen = ({ route }) => {
 				}}
 			>
 				<LinearGradient
-					colors={["rgba(245, 245, 245, 1)","rgba(160, 160, 160, 1)"]}
+					colors={isDarkMode ? ["rgba(160, 160, 160, 1)", "rgba(245, 245, 245, 1)"] : ["rgba(245, 245, 245, 1)","rgba(160, 160, 160, 1)"]}
 					style={styles.heading}
 				>
 					{isLoading ? <Text style={styles.loadingText}>Đang tải nội dung...</Text> :
@@ -213,11 +216,15 @@ const ArticleScreen = ({ route }) => {
 		return (
 			<ScrollView bounces={false} contentContainerStyle={styles.content}>
 				<Image source={{ uri: cover }} style={styles.cover} />
-				<View style={styles.mainContent}>
+				<View style={[styles.mainContent,
+					{backgroundColor: isDarkMode ? '#28231d' : '#ffffff'}
+				]}>
 					{renderHeading()}
 					{isLoading ? <ContentSkeleton /> :
 						isShowSummary ? renderSummary() :
-						<Text style={styles.contentText}>
+						<Text style={[styles.contentText,
+							{color: isDarkMode ? '#ffffff' : '#000000'}
+						]}>
 							{isShowReduplication
 								? renderDuplicateHighlightedText()
 								: renderOriginalText()}
@@ -229,7 +236,9 @@ const ArticleScreen = ({ route }) => {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView style={[styles.container,
+			{backgroundColor: isDarkMode ? '#28231d' : '#ffffff'}
+		]}>
 			<Header
 				onSpeech={() => {
 					setIsSpeaking(!isSpeaking);
@@ -249,7 +258,6 @@ const ArticleScreen = ({ route }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "white",
 	},
 	cover: {
 		width: ratioW(375),
@@ -282,7 +290,6 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: ratioW(16),
 		borderTopRightRadius: ratioW(16),
 		marginTop: ratioH(-20),
-		backgroundColor: "white",
 		alignItems: "center",
 		flexDirection: "column",
 	},

@@ -9,8 +9,11 @@ import {ratioH} from "../../../utils/converter";
 import {useDispatch} from "react-redux";
 import {getNewsAction, getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
 import Header from '../../components/Header';
+import { SampleContext } from '../../../context/SampleContext';
+import { useContext } from 'react';
 
 const FeedScreen = () => {
+  const { isDarkMode } = useContext(SampleContext);
   const dispatch = useDispatch();
   const [currentFilter, setCurrentFilter] = useState('Lọc');
   const [newsData, setNewsData] = useState([])
@@ -40,7 +43,8 @@ const FeedScreen = () => {
   }, [currentFilter]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,
+    {backgroundColor: isDarkMode ? '#28231d' : 'white'}]}>
         <ScrollView>
           <Header title={'Tin tức'}/>
           <Filter onChange={setCurrentFilter}/>
@@ -55,8 +59,7 @@ const FeedScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    marginBottom: ratioH(96),
+    marginBottom: ratioH(72),
   },
 })
 

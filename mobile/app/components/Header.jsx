@@ -5,18 +5,22 @@ import Icons from "../../constants/Icons";
 import LinearGradient from "react-native-linear-gradient";
 import Tts from "react-native-tts"
 import Fonts from '../../constants/Fonts';
+import { SampleContext } from "../../context/SampleContext";
+import { useContext } from 'react';
 
 const Header = ({title}) => {
+  const { toggleDarkMode, isDarkMode } = useContext(SampleContext);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,
+    {backgroundColor: isDarkMode ? '#28231d' : 'white'}]}>
       <Text style={styles.title}>{title}</Text>
       <TouchableOpacity
         onPress={() => {
-          
+          toggleDarkMode();
         }}
         style={styles.iconContainer}>
         <LinearGradient colors={['#ff3a44', '#ff8086']} style={styles.icon}>
-          <Text style={styles.iconText}>?</Text>
+          <Text style={styles.iconText}>⏾</Text>
         </LinearGradient>
       </TouchableOpacity>
     </View>
@@ -25,7 +29,6 @@ const Header = ({title}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     alignItems: 'center',
     marginTop: ratioH(8),
     flexDirection: 'row',
