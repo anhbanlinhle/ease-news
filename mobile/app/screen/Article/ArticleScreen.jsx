@@ -24,7 +24,7 @@ import ContentSkeleton from "./ContentSkeleton";
 import { SampleContext } from '../../../context/SampleContext';
 
 const ArticleScreen = ({ route }) => {
-	const { isDarkMode } = useContext(SampleContext);
+	const { isDarkMode, fontScale } = useContext(SampleContext);
 	const navigation = useNavigation();
 	const dispatch = useDispatch();
 	const { author, categories, content, summary, cover, timestamp, title } =
@@ -138,7 +138,7 @@ const ArticleScreen = ({ route }) => {
 			return content;
 		}
 		return (
-			<Text style={styles.contentText}>
+			<Text>
 				{highlightedText.map((item, index) => {
 					const textElement = (
 						<Text key={index}>
@@ -223,7 +223,9 @@ const ArticleScreen = ({ route }) => {
 					{isLoading ? <ContentSkeleton /> :
 						isShowSummary ? renderSummary() :
 						<Text style={[styles.contentText,
-							{color: isDarkMode ? '#ffffff' : '#000000'}
+							{color: isDarkMode ? '#ffffff' : '#000000',
+								fontSize: ratioH(14 * fontScale),
+							}
 						]}>
 							{isShowReduplication
 								? renderDuplicateHighlightedText()
