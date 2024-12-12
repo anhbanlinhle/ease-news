@@ -16,4 +16,6 @@ async def summary(body: textRequest.TextRequest):
 @router.post("/generate-image")
 async def generate_image(body: textRequest.TextRequest):
     enText = viToEnTranslator.translate_text(body.text)
+    if enText is '' or enText is None:
+        return {"reply": None}
     return {"reply": await textToImage.text_to_image(enText)}
