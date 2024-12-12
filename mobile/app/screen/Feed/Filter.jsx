@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import FilterItem from "./FilterItem";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllCategoriesAction, getNewsAction, getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
+import { SampleContext } from '../../../context/SampleContext';
 
 const Filter = ({onChange}) => {
+  const { isDarkMode } = useContext(SampleContext);
   const [categories, setCategories] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('Lọc');
   const dispatch = useDispatch();
@@ -20,7 +22,8 @@ const Filter = ({onChange}) => {
     }))
   }, []);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,
+    {backgroundColor: isDarkMode ? '#28231d' : 'white'}]}>
       <FlatList
         data={["Lọc", ...categories]}
         keyExtractor={(item, index) => index.toString()}
@@ -44,7 +47,6 @@ const Filter = ({onChange}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     marginTop: ratioH(12),
     marginLeft: ratioW(16),
   },

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {View, StyleSheet, Text, SafeAreaView} from 'react-native'
 import {ScrollView} from "react-native-gesture-handler";
 import {ratioH} from "../../../utils/converter";
@@ -6,10 +6,11 @@ import Header from "../../components/Header";
 import Section from "./Section";
 import {useDispatch} from "react-redux";
 import {getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
-
+import { SampleContext } from '../../../context/SampleContext';
 const TrendingScreen = () => {
   const [newsData, setNewsData] = useState([])
   const dispatch = useDispatch()
+  const { isDarkMode } = useContext(SampleContext);
 
   useEffect(() => {
     dispatch(getNewsByCategoryAction({
@@ -20,7 +21,9 @@ const TrendingScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,
+      {backgroundColor: isDarkMode ? '#28231d' : '#ffffff'}
+    ]}>
       <ScrollView>
         <Header title={'Xu hướng'}/>
         <Section title={'ĐANG ĐƯỢC QUAN TÂM'} data={newsData.slice(0,3)}/>
@@ -33,8 +36,7 @@ const TrendingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    marginBottom: ratioH(96),
+    marginBottom: ratioH(72),
   }
 })
 

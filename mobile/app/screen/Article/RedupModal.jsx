@@ -1,5 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React, { forwardRef, useImperativeHandle, useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Pressable, Animated } from 'react-native';
 import { ratioH, ratioW } from '../../../utils/converter';
 import LinearGradient from 'react-native-linear-gradient';
 import Icons from '../../../constants/Icons';
@@ -9,19 +9,35 @@ import Fonts from '../../../constants/Fonts';
 const RedupModal = forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState(null);
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+
   useImperativeHandle(ref, () => ({
     show: (data) => {
-      setVisible(true)
       setData(data)
+      handleShow()
     },
-    hide: () => setVisible(false),
+    hide: () => handleHide(),
   }));
 
-  const handleOutsidePress = () => {
-    setVisible(false);
-  };
+  const handleShow = () => {
+    setVisible(true);
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }
 
-  if (!visible) return null; // Don't render anything if not visible
+  const handleHide = () => {
+    Animated.timing(scaleAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+    setTimeout(() => {
+      setVisible(false)
+    }, 200)
+  }
 
   const renderHeader = () => {
     return (
@@ -32,24 +48,34 @@ const RedupModal = forwardRef((props, ref) => {
           Tts.speak(data?.word)
         }}
         style={styles.iconContainer}>
-        {/* <LinearGradient colors={['#ff3a44', '#ff8086']} style={styles.icon}> */}
-          <Icons.Voice width={ratioH(20)} height={ratioH(20)}/>
-        {/* </LinearGradient> */}
+        <Icons.Voice width={ratioH(20)} height={ratioH(20)}/>
       </TouchableOpacity>
       </View>
     )
   }
 
   return (
-    <TouchableWithoutFeedback onPress={handleOutsidePress}>
+    <View
+      pointerEvents={visible ? undefined : 'none'}
+      style={[
+        StyleSheet.absoluteFill,
+        styles.container,
+        { opacity: visible ? 1 : 0 }
+      ]}
+    >
       <View style={[StyleSheet.absoluteFill, styles.container]}>
-        <TouchableWithoutFeedback>
+        <Pressable onPress={handleHide} style={StyleSheet.absoluteFill}/>
+        <Animated.View
+          style={[
+            {transform: [{ scale: scaleAnim }]},
+            styles.modal
+          ]}
+        >
           <LinearGradient
             colors={['#FF9A9E', '#FAD0C4']}
-            style={styles.modal}>
+            style={styles.background}>
             <ScrollView
-              contentContainerStyle={[styles.modalContent, { flexGrow: 1 }]}
-              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={[styles.modalContent]}
               style={{ maxHeight: '100%' }}
             >
               {renderHeader()}
@@ -60,9 +86,9 @@ const RedupModal = forwardRef((props, ref) => {
               ))}
             </ScrollView>
           </LinearGradient>
-        </TouchableWithoutFeedback>
+        </Animated.View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 });
 
@@ -70,12 +96,13 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    backgroundColor: 'rgba(0, 0, 0, 0.2)'
   },
   modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '90%',
     height: '50%',
-    borderRadius: ratioH(24)
   },
   background: {
     borderRadius: ratioH(24)
@@ -84,6 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: ratioH(26),
     flexGrow: 1,
+    marginBottom: ratioH(20)
   },
   word: {
     fontSize: ratioH(24),

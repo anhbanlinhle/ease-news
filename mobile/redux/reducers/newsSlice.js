@@ -17,3 +17,11 @@ export const getReduplicationInNewsAction = createAction(
 export const getReduplicationDetailAction = createAction(
 	"newsData/getReduplicationDetailAction"
 );
+
+export const getSummaryTextAction = createAction(
+	"newsData/getSummaryTextAction"
+);
+
+export const getTextToImageAction = createAction(
+	"newsData/getTextToImageAction"
+);

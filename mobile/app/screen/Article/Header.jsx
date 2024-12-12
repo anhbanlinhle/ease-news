@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { ratioH, ratioW } from "../../../utils/converter";
 import LinearGradient from "react-native-linear-gradient";
 import Icons from "../../../constants/Icons";
 import { useNavigation } from "@react-navigation/native";
 import Tts from "react-native-tts";
+import { SampleContext } from "../../../context/SampleContext";
 
 const Header = ({ onSpeech, onHighlight }) => {
+	const { fontScale, updateFontScale, isDarkMode } = useContext(SampleContext);
 	const navigation = useNavigation();
 
 	return (
@@ -18,7 +20,7 @@ const Header = ({ onSpeech, onHighlight }) => {
 					navigation.goBack();
 				}}
 			>
-				<Icons.Back />
+				<Icons.Back  />
 			</TouchableOpacity>
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={onSpeech}>
@@ -37,6 +39,26 @@ const Header = ({ onSpeech, onHighlight }) => {
 						<Icons.HighLight />
 					</LinearGradient>
 				</TouchableOpacity>
+				<TouchableOpacity onPress={() => {
+					updateFontScale(fontScale - 0.1);
+				}}>
+					<LinearGradient
+						colors={["#ff3a44", "#ff8086"]}
+						style={styles.iconSpeech}
+					>
+						<Text style={[styles.textButton]}>-</Text>
+					</LinearGradient>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={() => {
+					updateFontScale(fontScale + 0.1);
+				}}>
+					<LinearGradient
+						colors={["#ff3a44", "#ff8086"]}
+						style={styles.iconSpeech}
+					>
+						<Text style={[styles.textButton]}>+</Text>
+					</LinearGradient>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
@@ -45,7 +67,7 @@ const Header = ({ onSpeech, onHighlight }) => {
 const styles = StyleSheet.create({
 	header: {
 		width: ratioW(375),
-		height: ratioH(44),
+		height: ratioH(64),
 		flexDirection: "row",
 		alignItems: "center",
 	},
@@ -53,21 +75,27 @@ const styles = StyleSheet.create({
 		width: ratioH(30),
 		height: ratioH(30),
 		alignItems: "center",
+		justifyContent: "center",
 		marginLeft: ratioH(16),
 	},
 	buttonContainer: {
 		position: "absolute",
-		right: ratioH(14),
+		right: ratioH(12),
 		flexDirection: "row",
 		justifyContent: "space-between",
 	},
 	iconSpeech: {
-		width: ratioH(30),
-		height: ratioH(30),
-		borderRadius: ratioW(16),
+		width: ratioH(36),
+		height: ratioH(36),
+		borderRadius: ratioW(8),
 		justifyContent: "center",
 		alignItems: "center",
 		marginHorizontal: ratioW(6),
+	},
+	textButton: {
+		fontSize: ratioH(16),
+		fontWeight: "700",
+		color: "white",
 	},
 });
 

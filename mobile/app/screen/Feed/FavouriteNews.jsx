@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {View, StyleSheet, Text, FlatList} from 'react-native'
 import {ratioH, ratioW} from "../../../utils/converter";
 import SmallNews from "../../components/thumbnails/SmallNews";
@@ -7,11 +7,14 @@ import {useDispatch} from "react-redux";
 import {getNewsByCategoryAction} from "../../../redux/reducers/newsSlice";
 import {useNavigation} from "@react-navigation/native";
 import Fonts from '../../../constants/Fonts';
+import { SampleContext } from '../../../context/SampleContext';
 
 const FavouriteNews = () => {
   const [newsData, setNewsData] = useState([]);
   const dispatch = useDispatch()
   const navigation = useNavigation()
+
+  const { isDarkMode } = useContext(SampleContext);
 
   useEffect(() => {
     dispatch(getNewsByCategoryAction({
@@ -24,7 +27,10 @@ const FavouriteNews = () => {
   const renderHeader = () => {
     return (
       <View style={styles.header}>
-        <Text style={styles.title}>Có thể bạn sẽ thích</Text>
+        <Text style={[styles.title,
+          {color: isDarkMode ? 'white' : 'black'}]}>
+          Có thể bạn sẽ thích
+        </Text>
         <Icons.Pin style={styles.icon}/>
       </View>
     )

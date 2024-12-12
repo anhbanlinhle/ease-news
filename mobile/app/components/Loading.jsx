@@ -14,7 +14,7 @@ const Loading = forwardRef(({}, ref) => {
       style={[StyleSheet.absoluteFill, styles.container(isActive)]}
       pointerEvents={'none'}
     >
-      <ActivityIndicator size='large' color="#9bceb5"/>
+      <ActivityIndicator size='large' color="#ff8086"/>
     </View>
   )
 })
