@@ -1,0 +1,6 @@
+at /hmi-app/service
+1. pip install -r requirements.txt
+2. pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+3. Run main.py at /hmi-app/service/app (python app/main.py or python3 app/main.py)
+
+place .env file at /hmi-app/service (Ask admin Wuto for the .env file)

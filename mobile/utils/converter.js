@@ -12,10 +12,5 @@ export const ratioH = (elementWidth) => {
 }
 
 export const formatTimestamp = (timestamp) => {
-  const date = moment(timestamp);
-  if (date.isSame(moment(), 'day')) {
-    return date.format('HH:mm');
-  } else {
-    return date.format('MMM DD');
-  }
+  return moment(timestamp).format('dddd, D MMMM YYYY');
 };
