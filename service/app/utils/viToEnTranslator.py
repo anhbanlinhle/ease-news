@@ -15,8 +15,12 @@ def initialize_translator():
 def translate_text(sentence):
     if translate_model is None or translate_tokenizer is None:
         initialize_translator()
-    output = translate_model.generate(
-        translate_tokenizer(sentence, return_tensors="pt", padding=True).input_ids.to('cpu'), max_length=512)
+    sentence = "vi: " + sentence
+    token = translate_tokenizer([sentence], return_tensors="pt", padding=True).input_ids.to('cpu')
+    output = translate_model.generate(token, max_length=512)
     sentence = translate_tokenizer.batch_decode(output, skip_special_tokens=True)
-    en_sentence = sentence[0].split("en: ")[1]
+    try:
+        en_sentence = sentence[0].replace("en: ", "")
+    except Exception as e:
+        en_sentence = sentence[0]
     return en_sentence

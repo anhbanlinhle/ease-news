@@ -139,6 +139,7 @@ function* getTextToImage(action) {
 			body: JSON.stringify({ text: body }),
 		});
 		const data = yield response.json();
+		console.log(data);
 		onSuccess?.(data);
 	} catch (error) {
 		onFail?.(error);
@@ -153,5 +154,5 @@ export function* watchGetNewsData() {
 	yield takeLatest(getReduplicationInNewsAction().type, getReduplicationInNews);
 	yield takeLatest(getReduplicationDetailAction().type, getReduplicationDetail);
 	yield takeLatest(getSummaryTextAction().type, getSummaryText);
-	yield takeLatest(getTextToImageAction().type, getTextToImage);
+	yield takeEvery(getTextToImageAction().type, getTextToImage);
 }
